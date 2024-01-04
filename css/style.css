@@ -48,6 +48,69 @@
     margin-right: auto;
     border-radius: 5%;
 }
+#event-list-table {
+    font-family: "Raleway", sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+   }
+   #event-list-table td, #event-list-table th {
+    border: 1px solid #616161;
+    padding: 8px;
+   }
+   #event-list-table tr:nth-child(even){background-color: #ddd;}
+   #event-list-table tr:hover {background-color: #C8B4BA;}
+   #event-list-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #0876B8;
+    font-size: 25px;
+    font-family: "Raleway", sans-serif;
+    color: black;
+   }
+   #event-list-table td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: black;
+   }
+
+   #event-list-table tr:nth-child(1) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #0097E1; 
+    color: black; 
+    font-weight: bold;
+  }
+
+#event-list-table td.status-active {
+    color: green;
+}
+
+#event-list-table td.status-closed {
+    color: red;
+}
+
+#event-list-table td.status-pending {
+    color: rgb(236, 161, 0);
+}
+
+.update-event-table{
+    border: none;
+    background-color: #5682b5;
+    padding: 10px;
+    border-radius: 5px;
+    border-spacing: 2px;
+    border-collapse: separate;
+    width: 100%;
+
+}
+
+.update-event-table th{
+    width: 15%;
+    text-align: left;
+}
 
 .table-event-board {
     width: 100%;
