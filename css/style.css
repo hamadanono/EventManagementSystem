@@ -1,0 +1,221 @@
+/*===========================================*/
+
+/*===========================================
+  CSS for table add/edit - using id
+===========================================*/
+#addDiv table{	
+	border-collapse: collapse;
+	width: 50%;
+	padding-left: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#addDiv select{
+	padding: 5px;
+}
+
+#addDiv input[type="text"]{
+	padding: 5px;
+}	
+
+#addDiv textarea{
+	width:95%;
+	padding: 5px;
+}
+
+#addDiv td, #addDiv th {
+	border: 1px solid #616161;
+	padding: 8px;
+}
+
+/*==============Event Board================*/
+.event-board-div{
+    background-color: #5682b5;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+    width: 75%;
+}
+.view-event-poster{
+    width: 100%;
+    margin-left:0;
+    border-radius: 5%;
+}
+.event-poster{
+    width: 100%;
+    margin-left:auto;
+    margin-right: auto;
+    border-radius: 5%;
+}
+
+.table-event-board {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-event-board td {
+    padding: 8px; 
+}
+
+.table-event-board td:nth-child(1) {
+    width: 40%;
+}
+
+.table-event-board td:nth-child(2) {
+    width: 60%; 
+}
+
+.table-event-board td:nth-child(3) {
+    width: 60%; 
+    text-align: center;
+}
+
+.table-event-board td:nth-child(4) {
+    width: 60%; 
+}
+
+.table-event-board td:nth-child(5) {
+    width: 60%; 
+}
+
+.table-event-board td:nth-child(6) {
+    width: 60%; 
+}
+
+#joinbutton {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 24px; /* Set line-height equal to the height */
+    border-radius: 500px;
+    transition-property: background-color, border-color, color, box-shadow, filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 24px; /* Adjust padding for horizontal spacing */
+    color: #fff;
+    background-color: #1ED760;
+    height: 24px; /* Set height equal to line-height */
+}
+
+#joinbutton:hover {
+    transform: scale(1.04);
+    background-color: #21e065;
+}
+
+
+#joinbutton:hover {
+    transform: scale(1.04);
+    background-color: #21e065;
+}
+
+
+header{
+    width: 100%;
+    height: 120%1
+    
+}
+header h1{
+    text-align: center;
+    font-weight: 300;
+    margin: 0;
+    padding: 5%;
+    color: #ffffff;
+}
+body { 
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #eee;
+    color: #000000;
+    font-family: "Raleway", sans-serif
+    }
+   
+   h1 {background-color: #eee;
+    color: #000000;
+    line-height: 200%;
+    font-family: "Raleway", sans-serif
+    }
+   
+   h2 {
+    color: #000000;
+    font-family: "Raleway", sans-serif
+    }
+
+    
+
+
+   p {
+    font-size: 12pt; text-indent: 3em;
+    color: #000000;
+   } 
+
+
+
+.banner {
+    width: 100%;
+    height: auto;
+     text-align: center;
+     color: #ffffff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+    } 
+
+.topnav {
+    overflow: hidden;
+    background-color: #004FA7;
+    margin-top: 0;
+   }
+   /* Style the topnav links */
+   .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+   }
+   /* Change color on hover */
+   .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+   }
+
+   .topnav a:last-child {
+    float: right;
+    }
+   .row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+   }
+   .col-left {
+   text-align: center; /* Center the image horizontally */
+   flex: 20%;
+   padding: 15px;
+   }
+   .col-right {
+   flex: 70%; /* Takes 1/3 of the available width */
+   padding: 15px;
+   }
+   /* Media query for smaller screens (e.g., 768px) */
+   @media screen and (max-width: 768px) {
+    .row {
+    /* Stack elements vertically on smaller screens */
+    flex-direction: column;
+    width: 95%;
+    }
+   
+   [class*="col-"] {
+   /* Reset the flex property to prevent stretching */
+    flex: none;
+    width: 100%;
+    }
+   } 
