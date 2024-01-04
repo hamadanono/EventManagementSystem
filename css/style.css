@@ -112,6 +112,7 @@
     text-align: left;
 }
 
+
 .table-event-board {
     width: 100%;
     margin-right: auto;
@@ -147,6 +148,65 @@
     width: 60%; 
 }
 
+#delete-button{
+    height: 34px;
+    width: 60px;
+    text-align: center;
+    background-color: #ff4742;
+    color: white;
+    border: 2px solid #ff4742;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth transition */
+    
+}
+
+#delete-button:hover{
+    background-color: #ffffff;
+    
+    color: #ff4742;
+}
+
+#update-button{
+
+    height: 34px;
+    width: 60px;
+    text-align: center;
+    background-color: #0078d4;
+    color: white;
+    border: 2px solid #0078d4;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth transition */
+    
+}
+
+#update-button:hover{
+    background-color: #ffffff;
+    
+    color: #0078d4;
+}
+
+#update-confirm-button{
+
+    height: 34px;
+    width: 60px;
+    text-align: center;
+    background-color: #1ED760;
+    color: white;
+    border: 2px solid #1ED760;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth transition */
+    
+}
+
+#update-confirm-button:hover{
+    background-color: #ffffff;
+    
+    color: #1ED760;
+}
+
 #joinbutton {
     display: inline-block;
     outline: none;
@@ -179,7 +239,6 @@
     transform: scale(1.04);
     background-color: #21e065;
 }
-
 
 header{
     width: 100%;
