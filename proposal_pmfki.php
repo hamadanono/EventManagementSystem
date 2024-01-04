@@ -33,22 +33,28 @@ session_start();
 <?php include("navigation_pmfki.php"); ?>
 <br>
 
-<h2  align="center">List of Event Proposal</h2>
+
 
 <div style="padding:0 10px;">
     <div style="float: right; padding-bottom:10px;">
         <input type="button" value="Add New" onclick="show_AddEntry()">
     </div>
-    <table border="1" width="100%" id="projectable">
+    <table border="1" width="100%" id="event-list-table">
         <tr>
-            <th width="2%">No</th>
-            <th width="20%">Name</th>
-            <th width="12%">Date</th>
-            <th width="10%">Time</th>
-            <th width="12%">Venue</th>
-            <th width="5%">Status</th>
-            <th width="10%">Remark</th>
-            <th width="5%">Action</th>
+        <thead>
+        <th colspan="13">LIST OF PROPOSAL</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="2%">No</td>
+            <td width="20%">Name</td>
+            <td width="12%">Date</td>
+            <td width="10%">Time</td>
+            <td width="12%">Venue</td>
+            <td width="5%">Status</td>
+            <td width="10%">Remark</td>
+            <td width="5%">Action</td>
         </tr>
         <?php
             $sql = "SELECT * 
@@ -98,8 +104,7 @@ session_start();
                     }
                     
                     echo "<td>" . $row["event_adminRemark"] . "</td>";
-                    echo '<td> <a href="proposal_view.php?id=' . $row["event_id"] . '">View Details</a>';
-                    echo "</tr>" . "\n\t\t";
+                    echo '<td><button onclick="location.href=\'proposal_view.php?id=' . $row["event_id"] . '\'">View Details</button></td>';                    echo "</tr>" . "\n\t\t";
                     $numrow++;
                 }
             } else {
@@ -108,6 +113,7 @@ session_start();
             
             mysqli_close($conn);
         ?>
+    </tbody>
     </table>
 </div>
 
