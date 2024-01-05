@@ -11,6 +11,7 @@
     </head>
 
     <body>
+        <script src="script/script.js"></script>
         <!-- popup message -->
         <div id="popup" class="popup-container">
             <div class="popup-content">
@@ -123,7 +124,7 @@
                 
                     //generate a new img name using matrics number
                     $imgfiletype = strtolower(pathinfo($uploadfilename, PATHINFO_EXTENSION));
-                    $targetfile = $targetdir . $stuMatrics . "." . $imgfiletype;
+                    $targetfile = $targetdir . $student_id . "." . $imgfiletype;
                     $imgnewname = $stuMatrics . "." . $imgfiletype;
 
                     //detect the account if exist using the img name
