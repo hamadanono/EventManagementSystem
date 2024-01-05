@@ -11,6 +11,7 @@
     </head>
 
     <body>
+        <button onclick="popup_message('Your account has been successfully registered')"></button>
         <script src="script/script.js"></script>
         <!-- popup message -->
         <div id="popup" class="popup-container">
@@ -125,7 +126,7 @@
                     //generate a new img name using matrics number
                     $imgfiletype = strtolower(pathinfo($uploadfilename, PATHINFO_EXTENSION));
                     $targetfile = $targetdir . $student_id . "." . $imgfiletype;
-                    $imgnewname = $stuMatrics . "." . $imgfiletype;
+                    $imgnewname = $student_id . "." . $imgfiletype;
 
                     //detect the account if exist using the img name
                     if (file_exists($targetfile)) {
@@ -150,7 +151,7 @@
                                 '$student_phone', '$student_address', '$imgnewname')";
                         $status = insert_to_table($conn, $sql);
 
-                        if($status && $status_kpi){
+                        if($status){
                             if(move_uploaded_file($_FILES["student_profilePic"]["tmp_name"], $targetfile)){
                                 echo '<script>popup_message("Your account has been successfully registered")</script>';
                             }
