@@ -1,4 +1,6 @@
-/*==============Global================*/
+/***********************|
+|        GLOBAL         |
+|***********************/
 body{
     margin: 0;
     font-family: 'Outfit', sans-serif;
@@ -102,6 +104,72 @@ body{
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.popup-content {
+	border: 1px solid #ccc;
+	width: auto;
+	color: #E6E9EE;
+	background-color: #50316d;
+	padding: 20px;
+	border-radius: 8px;
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.popup-content th{
+	border: none;
+	text-align: left;
+}
+
+.popup-content select{
+	background-color: #341B55;
+	width: 92%;
+	border-radius: 5px;
+}
+
+.popup-content input[type="text"]{
+	background-color: #341B55;
+	width: 90%;
+	border-radius: 5px;
+	border: none;
+	color:#E6E9EE;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.popup-content textarea[name="ch_imagename"]{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.popup-content textarea, input[type="text"]{
+	background-color: #341B55;
+	width: 90%;
+	border-radius: 5px;
+	border: none;
+	color:#E6E9EE;
+	padding-left: 5px;
+}
+
+.popup-content span{
+	padding-left: 10px;
+	text-align: left;
+	margin-left: 4%;
+	background-color: #341B55;
+	display: flex;
+	flex-direction: column;
+	width: 89%;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 5%;
+}
+
+.popup-content img{
+	width: 90%;
 }
 
 /*===========================================*/
