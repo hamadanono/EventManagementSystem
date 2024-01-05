@@ -146,7 +146,7 @@
                         $sql = "INSERT INTO student (student_name, student_ic ,student_id, student_pwd, student_email, student_phone, 
                                 student_address, student_profilePic)
                                 VALUES ('$student_profilePic', '$student_ic', '$student_id', '$student_pwd', '$student_email', 
-                                '$student_phone', '$student_address', '$student_profilePic')";
+                                '$student_phone', '$student_address', '$imgnewname')";
                         $status = insert_to_table($conn, $sql);
 
                         if($status && $status_kpi){
@@ -158,7 +158,7 @@
                             }
                         }
                         else{
-                            echo '<script>popup_page_stay("Your account already exist")</script>';
+                            echo '<script>popup_page_stay("Failed to establish a connection with the database")</script>';
                         }
                     }
                 }
