@@ -1,17 +1,21 @@
 /***********************|
 |        GLOBAL         |
 |***********************/
+*, h1{
+    font-family: 'Outfit', sans-serif;  
+}
+
 body{
     margin: 0;
-    font-family: 'Outfit', sans-serif;
-    background-color: #3B4252;
+    background: linear-gradient(to bottom,#ba0ff2, #50316d);
+    /* background-color: #3B4252; */
 }
 
 .button {
     background-color: #341B55; 
     color: #ccc; 
-    display: inline-block;
     border: 1px solid #ccc;
+    display: inline-block;
     border-radius: 5px;
     padding: 7px;
     padding-left: 10px;
@@ -26,9 +30,8 @@ body{
     margin-left: 10px;
 }
 
-
 /***********************|
-|        SIGNUP         |
+|    SIGNUP & SIGNIN    |
 |***********************/
 .container-row {
     background-color: #341B55;
@@ -41,6 +44,7 @@ body{
     margin: 0%;
     line-height: 0;
     overflow: hidden;
+    
 }
 
 .signup-box {
@@ -53,6 +57,7 @@ body{
 }
 
 .signup-box h1{
+    font-family: 'Outfit', sans-serif; 
     background-color: #50316d;
     color: #ccc;
 }
@@ -84,6 +89,69 @@ body{
     margin-bottom: 2px;
     padding: 5px;
     width: 93%;
+}
+
+.signin-box{
+    background-color: #50316d; 
+    color: #ccc;
+    width: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.signin-box h1{
+    font-family: 'Outfit', sans-serif; 
+    background-color: #50316d; 
+    color: #ccc;
+    width: 0 auto;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.signin-table th{
+    text-align: center;
+    padding: 10px;
+    
+}
+
+.signin-table td{
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    width: 250px;
+}
+
+.signin-table input{
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.signin-table input[type="password"]{
+    background-color: #341B55;
+    color: #ccc;
+    border: none;
+    width: 225px;
+
+}
+
+.signin-table button{
+    background-color: #341B55;
+    color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 80%;
+    cursor: pointer;
+}
+
+.signin-table.signin-table button:last-child{
+    margin-bottom: 20px;
 }
 
 /***********************|

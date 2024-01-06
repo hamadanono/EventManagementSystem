@@ -32,7 +32,7 @@
 
         <div class="container-row">
             <div class="signup-box">
-                <form action="signup.php" method="POST" enctype="multipart/form-data" id="signup-form"> 
+                <form action="signup.php" method="POST" enctype="multipart/form-data" id="sign-form"> 
                     <table width="100%" class="signup-table">
                         <h1>Sign Up</h1>
                         <tr>
@@ -119,6 +119,8 @@
                 $student_phone = trim($_POST["student_phone"]);
                 $student_address = trim($_POST["student_address"]);
 
+                $pwd_hash = trim(password_hash($student_pwd, PASSWORD_DEFAULT));
+
                 if(isset($_FILES["student_profilePic"]) && $_FILES["student_profilePic"]["error"] == UPLOAD_ERR_OK){
                     $uploadstat = 1;
                     $filetemp = $_FILES["student_profilePic"];
@@ -148,7 +150,7 @@
                     if($uploadstat == 1){
                         $sql = "INSERT INTO student (student_name, student_ic ,student_id, student_pwd, student_email, student_phone, 
                                 student_address, student_profilePic)
-                                VALUES ('$student_profilePic', '$student_ic', '$student_id', '$student_pwd', '$student_email', 
+                                VALUES ('$student_profilePic', '$student_ic', '$student_id', '$pwd_hash', '$student_email', 
                                 '$student_phone', '$student_address', '$imgnewname')";
                         $status = insert_to_table($conn, $sql);
 
