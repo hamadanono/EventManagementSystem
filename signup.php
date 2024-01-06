@@ -11,20 +11,22 @@
     </head>
 
     <body>
-        <button onclick="popup_message('Your account has been successfully registered')"></button>
+        <button onclick="popup_message('Your account has been successfully registered')">Open Button</button>
         <script src="script/script.js"></script>
         <!-- popup message -->
         <div id="popup" class="popup-container">
             <div class="popup-content">
                 <p id="popup_message"></p>
-                <button class="button" onclick="location.href='index.php'">Close</button>
+                <div>
+                    <button class="button" onclick="location.href='index.php'">Close</button>
+                </div>
             </div>
         </div>
 
         <div id="popup_page_stay" class="popup-container">
             <div class="popup-content">
                 <p id="popup_message_stay"></p>
-                <button class="button" onclick="location.href='index.php'">Close</button>
+                <button class="button" onclick="location.href='signup.php'">Close</button>
             </div>
         </div>
         <!--                -->

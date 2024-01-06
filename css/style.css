@@ -7,11 +7,25 @@ body{
     background-color: #3B4252;
 }
 
-.fill{
-    color: white;
-    width: 5px;
-    font-weight: bold;
+.button {
+    background-color: #341B55; 
+    color: #ccc; 
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    margin-top: 20px; 
+    margin-bottom: 10px; 
+    text-align: center;
 }
+
+.button:not(:first-child) {
+    margin-left: 10px;
+}
+
 
 /***********************|
 |        SIGNUP         |
@@ -45,7 +59,7 @@ body{
 }
 
 .signup-table th {
-    color: white;
+    color: #ccc;
     width: auto;
     text-align: left;
     margin-right: 5px;
@@ -74,19 +88,7 @@ body{
 }
 
 
-.button {
-    background-color: #341B55; 
-    color: #ccc; 
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 7px;
-    padding-left: 10px;
-    padding-right: 10px;
-    cursor: pointer;
-    margin-top: 20px; 
-    margin-bottom: 10px; 
-}
+
 
 
 
@@ -108,15 +110,36 @@ body{
 
 .popup-content {
 	border: 1px solid #ccc;
-	width: auto;
-	color: #E6E9EE;
 	background-color: #50316d;
 	padding: 20px;
 	border-radius: 8px;
-	max-width: 400px;
-	margin: 0 auto;
 	text-align: center;
 }
+
+.popup-content p{
+    color: #ccc;
+    text-align: center;
+    padding: 0%;
+    margin: 0%;
+}
+
+/* .popup-container {
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+    flex-direction: column;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+
+
+} */
 
 .popup-content th{
 	border: none;
@@ -131,10 +154,10 @@ body{
 
 .popup-content input[type="text"]{
 	background-color: #341B55;
+	color:#ccc;
+	border: none;
 	width: 90%;
 	border-radius: 5px;
-	border: none;
-	color:#E6E9EE;
 	padding-left: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -147,25 +170,25 @@ body{
 
 .popup-content textarea, input[type="text"]{
 	background-color: #341B55;
+	color:#ccc;
+	border: none;
 	width: 90%;
 	border-radius: 5px;
-	border: none;
-	color:#E6E9EE;
 	padding-left: 5px;
 }
 
 .popup-content span{
-	padding-left: 10px;
-	text-align: left;
-	margin-left: 4%;
 	background-color: #341B55;
 	display: flex;
 	flex-direction: column;
-	width: 89%;
 	border: none;
+	text-align: left;
+	width: 89%;
 	border-radius: 5px;
-	padding: 5px;
+	margin-left: 4%;
 	margin-bottom: 5%;
+	padding-left: 10px;
+	padding: 5px;
 }
 
 .popup-content img{
