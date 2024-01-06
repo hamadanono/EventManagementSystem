@@ -32,7 +32,6 @@ body{
 |***********************/
 .container-row {
     background-color: #341B55;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -40,8 +39,8 @@ body{
     justify-content: center;
     height: 100vh;
     margin: 0%;
-    padding: 10px;
     line-height: 0;
+    overflow: hidden;
 }
 
 .signup-box {
@@ -87,12 +86,6 @@ body{
     width: 93%;
 }
 
-
-
-
-
-
-
 /***********************|
 |         POPUP         |
 |***********************/
@@ -116,30 +109,18 @@ body{
 	text-align: center;
 }
 
-.popup-content p{
+#popup_message_stay{
     color: #ccc;
-    text-align: center;
-    padding: 0%;
-    margin: 0%;
+    word-break: keep-all;   
+    padding-right: 40px;
 }
 
-/* .popup-container {
-	background: rgba(0, 0, 0, 0.5);
-	display: none;
-    flex-direction: column;
-	position: fixed;
-	justify-content: center;
-	align-items: center;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+#popup_message{
+    color: #ccc;
+    word-break: keep-all;   
+    padding-right: 40px;
 }
 
-
-
-
-} */
 
 .popup-content th{
 	border: none;
@@ -194,6 +175,14 @@ body{
 .popup-content img{
 	width: 90%;
 }
+
+/***********************|
+|       SIGN IN         |
+|***********************/
+
+
+
+
 
 /*===========================================*/
 

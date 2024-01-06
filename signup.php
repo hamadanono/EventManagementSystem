@@ -11,7 +11,6 @@
     </head>
 
     <body>
-        <button onclick="popup_message('Your account has been successfully registered')">Open Button</button>
         <script src="script/script.js"></script>
         <!-- popup message -->
         <div id="popup" class="popup-container">
