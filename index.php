@@ -3,18 +3,19 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Sign Up</title>
+        <title>User Selection</title>
+        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
 	    <link rel="stylesheet" href="css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
 
     <body>
         <div class="container-row">
+            <img src="src/icon.png" alt="Logo">
+            <h2>FKI Event Management</h2>
             <div class="signin-box">
+                <h1>Select User</h1>
                 <table class="signin-table">
-                    <h1>Select User</h1>
                     <tr>
                         <td><button onclick="location.href='signin_student.php'">Student</button></td>
                     </tr>

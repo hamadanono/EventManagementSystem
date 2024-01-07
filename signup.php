@@ -12,6 +12,7 @@
 
     <body>
         <script src="script/script.js"></script>
+
         <!-- popup message -->
         <div id="popup" class="popup-container">
             <div class="popup-content">
@@ -113,7 +114,7 @@
             if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $student_name = trim($_POST["student_name"]);
                 $student_ic = trim($_POST["student_ic"]);
-                $student_id = strtolower(trim($_POST["student_id"]));
+                $student_id = strtoupper(trim($_POST["student_id"]));
                 $student_pwd = trim($_POST["student_pwd"]);
                 $student_email = trim($_POST["student_email"]);
                 $student_phone = trim($_POST["student_phone"]);
