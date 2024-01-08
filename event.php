@@ -102,6 +102,8 @@
                             echo 'status-active">ACTIVE';
                         } elseif ($row["event_status"] == 'C') {
                             echo 'status-closed">CLOSED';
+                        } elseif ($row["event_status"] == 'F') {
+                            echo 'status-closed">FINISHED';
                         }
                         echo "</td>";              
                         echo '<td> <button class="normal-btn" onclick="location.href=\'event_view.php?id=' . $row["event_id"] . '\'">View Details</button></td>';
