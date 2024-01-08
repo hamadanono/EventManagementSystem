@@ -85,47 +85,47 @@ if(!isset($_SESSION['pmfki_id'])){
                         <table class="event-view-table" >
                         <tr>
                             <th>Event Name</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</b></td>
                             <td><?php echo $event_name; ?></td>
                         </tr>
                         <tr>
                             <th>Synopsis</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</b></th>
                             <td><?php echo $event_synopsis; ?></td>
                         </tr>
                         <tr>
                             <th>Objective</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</td>
                             <td><?php echo $event_objective; ?></td>
                         </tr>
                         <tr>
                             <th>Impact</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</th>
                             <td><?php echo $event_impact; ?></td>
                         </tr>
                         <tr>
                             <th>Poster Description</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</th>
                             <td><?php echo $event_posterDesc; ?></td>
                         </tr>
                         <tr>
-                        <th>Date</th>
-                        <td><b>:</b></td>
-                        <td>
-                            <?php
-                            $formattedStartDate = date("d/m/Y", strtotime($event_startDate));
-                            $formattedEndDate = date("d/m/Y", strtotime($event_endDate));
-                            if ($formattedStartDate == $formattedEndDate) {
-                                echo $formattedStartDate;
-                            } else {
-                                echo $formattedStartDate . " - " . $formattedEndDate;
-                            }
-                            ?>
-                        </td>
+                            <th>Date</th>
+                            <th class="fill">:</th>
+                            <td>
+                                <?php
+                                $formattedStartDate = date("d/m/Y", strtotime($event_startDate));
+                                $formattedEndDate = date("d/m/Y", strtotime($event_endDate));
+                                if ($formattedStartDate == $formattedEndDate) {
+                                    echo $formattedStartDate;
+                                } else {
+                                    echo $formattedStartDate . " - " . $formattedEndDate;
+                                }
+                                ?>
+                            </td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</td>
                             <td>
                                 <?php
                                 $formattedStartTime = date("h:i A", strtotime($event_startTime));
@@ -136,36 +136,36 @@ if(!isset($_SESSION['pmfki_id'])){
                         </tr>
                         <tr>
                             <th>Venue</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</td>
                             <td><?php echo $event_venue; ?></td>
                         </tr>
                         <tr>
                             <th>Event Password</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</th>
                             <td><?php echo $event_pwd; ?></td>
                         </tr>
                         <tr>
                             <th>Event status</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</th>
                             <td>
                                 <?php
                                 // Assuming $event_status contains the status (A or C)
                                 if ($event_status == 'A') {
-                                    echo 'ACTIVE';
+                                    echo "<p class='stat-active'>ACTIVATE</p>";
                                 } elseif ($event_status == 'C') {
-                                    echo 'CLOSED';
+                                    echo "<p class='stat-closed'>CLOSED</p>";
                                 }
                                 ?>
                             </td>
                         </tr>
                         <tr>
                             <th>Submitted By</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</td>
                             <td><?php echo $pmfki_name; ?></td>
                         </tr>
                         <tr>
                             <th>Approved By</th>
-                            <td><b>:</b></td>
+                            <th class="fill">:</b></td>
                             <td><?php echo $admin_name; ?></td>
                         </tr>
                         <tr>

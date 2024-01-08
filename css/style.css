@@ -897,15 +897,17 @@ body {
     border: 1px solid white;
     border-radius: 10px;
     padding: 10px;
+    height: auto;
 }
 
 .col-left{
     width: 30%;
-    border: 1px solid white;
+    border: 3px solid white;
 }
 
 .col-left img{
     width: 100%;
+    margin-top: 0px;
     border-radius: 5px;
 }
 
@@ -915,20 +917,34 @@ body {
     margin-left: 30px;
 }
 
-.event-view-table th:first-child{
-    margin-left: 20px;
+.event-view-table th{
     border: none;
     text-align: left;
-    width: 11%;
     
 }
 
 .event-view-table td{
     text-align: left;
     color: #fff;
+}
+
+/* .event-view-table{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10%;
+    border: 1px solid white;
+}
+
+
+
+.event-view-table td{
+    text-align: left;
+    color: #fff;
     padding: 0;
     margin: 0;
-}
+    height: auto;
+} */
 
 
 

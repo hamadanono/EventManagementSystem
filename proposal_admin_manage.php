@@ -31,6 +31,7 @@
                 <table class="header-nav">
                     <tr>
                         <td><a href="proposal_admin.php" class="active"> Event Proposal</a></td>
+                        <td><a href="pmfki.php">PMFKI</a></td>
                         <td><a href="signout.php">Sign Out</a></td>
                     </tr>
                 </table>

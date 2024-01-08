@@ -59,7 +59,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_admin.php" class="active">Event Proposal</a></td>
+                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
                         <td><a href="event.php">Event List</a></td>
                         <td><a href="report.php" >Report</a></td>
                         <td><a href="signout.php">Sign Out</a></td>
@@ -131,11 +131,11 @@
                                 <?php
                                     // Assuming $event_status contains the status (A or C)
                                     if ($event_status == 'A' || $event_status == 'C') {
-                                        echo "Approved";
+                                        echo "<p class='stat-active'>Approved </p>";
                                     } else if ($event_status == 'P') {
-                                        echo "Pending";
+                                        echo "<p class='stat-pending'>Pending </p>";
                                     } else if ($event_status == 'D') {
-                                        echo "Declined";
+                                        echo "<p class='stat-closed'>Declined </p>";
                                     } else {
                                         echo "";
                                     }

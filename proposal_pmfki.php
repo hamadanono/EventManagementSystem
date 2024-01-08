@@ -9,11 +9,8 @@
 ?>
 
 <!DOCTYPE html>
-<html>
-
-<!DOCTYPE html>
-<html>
-    <head lang="en">
+<html lang="en">
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
         <title>FKI Event Management</title>
@@ -115,7 +112,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_admin.php" class="active">Event Proposal</a></td>
+                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
                         <td><a href="event.php" >Event List</a></td>
                         <td><a href="report.php" >Report</a></td>
                         <td><a href="signout.php">Sign Out</a></td>
@@ -232,9 +229,10 @@
             $impact = trim($_POST["impact"]);
         
             $sql = "INSERT INTO event (event_name, event_synopsis, event_objective, event_impact,
-            event_startDate, event_endDate, event_startTime, event_endTime, event_venue, event_status) /*, pmfki_id*/
-            VALUES ('" . $name . "', '". $synopsis . "', '" . $objective . "','" . $impact . "', '" . $startDate . "
-            ', '". $endDate . "', '" . $startTime . "','" . $endTime . "', '" . $venue . "', 'P')"; /*, ".$_SESSION["pmfki_id"]."*/
+            event_startDate, event_endDate, event_startTime, event_endTime, event_venue, event_status, pmfki_id)
+            VALUES ('$name', '$synopsis', '$objective', '$impact', '$startDate',
+            '$endDate', '$startTime', '$endTime', '$venue', 'P', '" . $_SESSION["pmfki_id"] . "')";
+
         
             $status = insertTo_DBTable($conn, $sql);
             if ($status) {
