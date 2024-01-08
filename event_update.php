@@ -279,6 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <select name="event_status">
                                     <option value="A" <?php if ($event_status == 'A') echo 'selected'; ?>>ACTIVE</option>
                                     <option value="C" <?php if ($event_status == 'C') echo 'selected'; ?>>CLOSED</option>
+                                    <option value="C" <?php if ($event_status == 'F') echo 'selected'; ?>>FINISHED</option>
                                 </select>
                             </td>
                         </tr>
