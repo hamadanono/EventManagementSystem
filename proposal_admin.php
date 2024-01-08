@@ -32,7 +32,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_admin.php" class="active"> Event Proposal</a></td>
+                        <td><a href="proposal_pmfki.php" class="active"> Event Proposal</a></td>
                         <td><a href="pmfki.php">PMFKI</a></td>
                         <td><a href="signout.php">Sign Out</a></td>
                     </tr>
@@ -46,7 +46,6 @@
                 <tr>
                     <th colspan="13">LIST OF PROPOSAL</th>
                 </tr>
-                <tbody>
                 <tr>
                     <td width="2%">No</td>
                     <td width="20%">Name</td>

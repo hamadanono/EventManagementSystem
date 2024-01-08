@@ -127,11 +127,10 @@
         <div class="table-list">
             <h1>Event Proposal</h1>
                 <div class=middle-button>
-                    <button class="normal-btn" onclick="popup_form()">Add New PMKFI Account</button>
+                    <button class="normal-btn" onclick="popup_form()">Create New Proposal</button>
                 </div>
             <table  border="1" width="100%" class="event-list-table">
                 <tr>
-                    <thead>
                     <th colspan="13">LIST OF PROPOSAL</th>
                     </thead>
                 </tr>
@@ -181,11 +180,11 @@
 
                             $event_status = $row["event_status"];
                             if ($event_status == 'A' || $event_status == 'C') {
-                                echo "<td class='status-active'>APPROVED</td>";
+                                echo "<td class='status-active'>Approved</td>";
                             } else if ($event_status == 'P') {
-                                echo "<td class='status-pending'>PENDING</td>";
+                                echo "<td class='status-pending'>Pending</td>";
                             } else if ($event_status == 'D') {
-                                echo "<td class='status-closed' >DECLINED</td>";
+                                echo "<td class='status-closed' >Declined</td>";
                             } else {
                                 echo "<td>" . $row["event_status"] . "</td>";
                             }

@@ -134,11 +134,11 @@
                                 <td>
                                     <?php
                                         if ($event_status == 'A' || $event_status == 'C') {
-                                            echo "Approved";
+                                            echo "<p class='stat-active'>Approved </p>";
                                         } else if ($event_status == 'P') {
-                                            echo "Pending";
+                                            echo "<p class='stat-pending'>Pending </p>";
                                         } else if ($event_status == 'D') {
-                                            echo "Declined";
+                                            echo "<p class='stat-closed'>Declined </p>";
                                         } else {
                                             echo "";
                                         }

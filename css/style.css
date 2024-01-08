@@ -519,6 +519,7 @@ body {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* status inside the table */
 .event-list-table td.status-active{
     color: #1eff0e;
     font-weight: bold;
@@ -535,12 +536,31 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* status in the form format*/
+.stat-active{
+    color: #1eff0e;
+    font-weight: bold;
+    text-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+.stat-pending{
+    color: #fffb0e;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.stat-closed{
+    color: #fa1a29;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 .event-list-table th{
 	background-color:#3b215e;
 }
 
-.event-list-table tr:first-child{
-    background-color: #452c63;
+.event-list-table tr:nth-child(2){
+    background-color: #4a3464;
 }
 
 .event-list-table td, th {
@@ -587,7 +607,7 @@ body {
     padding: 10px;
 }
 
-.event-table th{
+.event-table th:first-child{
     border: none;
     text-align: left;
     width: 11%;
@@ -596,8 +616,7 @@ body {
 .event-table textarea{
     background-color: #3b215e;
     color: #fff;
-    resize: none;
-    border: 1px solid white;
+    border: none;
     border-radius: 5px;
     padding: 5px;
     width: 98%;
@@ -605,6 +624,7 @@ body {
 }
 
 .fill{
+    border: none;
     font-weight: bold;
     color: #fff;
     width: 1px;
@@ -614,6 +634,34 @@ body {
     text-align: left;
     color: #fff;
     padding-left: 10px;
+}
+
+.event-table input[type="date"]{
+    background-color: #3b215e;
+    color: #fff;
+    text-align: left;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    width: 97.5%;
+    margin: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.event-table input[type="time"]{
+    background-color: #3b215e;
+    color: #fff;
+    text-align: left;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    width: 97.5%;
+    margin: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .proposal-details h1{
@@ -832,6 +880,61 @@ body {
 
 
 /***********************|
+|       EVENT VIEW      |
+|***********************/
+.header_1{
+    text-align: center;
+    color: #fff;
+}
+
+.event-view-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 3%;
+    margin-right: 3%;   
+    background-color: #5C4479;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.col-left{
+    width: 30%;
+    border: 1px solid white;
+}
+
+.col-left img{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.col-right{
+    width: 100%;
+    border: none;
+    margin-left: 30px;
+}
+
+.event-view-table th:first-child{
+    margin-left: 20px;
+    border: none;
+    text-align: left;
+    width: 11%;
+    
+}
+
+.event-view-table td{
+    text-align: left;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+/***********************|
 |       EVENTBOARD      |
 |***********************/
 .eventboard-row{
@@ -842,7 +945,7 @@ body {
 }
 
 .event-board-div {
-    background-color: #694694;
+    background-color: #5c4479;
     display: flex;
     flex-direction: row;
     justify-content: center;
