@@ -154,6 +154,8 @@ if(!isset($_SESSION['pmfki_id'])){
                                     echo 'ACTIVE';
                                 } elseif ($event_status == 'C') {
                                     echo 'CLOSED';
+                                } elseif ($event_status == 'F') {
+                                    echo 'FINISHED';
                                 }
                                 ?>
                             </td>
