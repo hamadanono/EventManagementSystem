@@ -8,7 +8,7 @@
     }
 
     // Use prepared statement to avoid SQL injection
-    $sql = "SELECT * FROM event WHERE event_status=? OR event_status=?";
+    $sql = "SELECT * FROM event WHERE event_status=? OR event_status=? OR event_status=?";
     $stmt = mysqli_prepare($conn, $sql);
 
     // Check if preparation was successful
