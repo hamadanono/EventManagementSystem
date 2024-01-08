@@ -16,7 +16,8 @@
         // Bind the parameters
         $event_status_A = 'A';
         $event_status_C = 'C';
-        mysqli_stmt_bind_param($stmt, "ss", $event_status_A, $event_status_C);
+        $event_status_F = 'F';
+        mysqli_stmt_bind_param($stmt, "sss", $event_status_A, $event_status_C,$event_status_F);
 
         // Execute the statement
         mysqli_stmt_execute($stmt);
