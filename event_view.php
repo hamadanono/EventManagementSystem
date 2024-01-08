@@ -149,7 +149,7 @@ if(!isset($_SESSION['pmfki_id'])){
                             <td><b>:</b></td>
                             <td>
                                 <?php
-                                // Assuming $event_status contains the status (A or C)
+                                // Assuming $event_status contains the status (A or C or F)
                                 if ($event_status == 'A') {
                                     echo 'ACTIVE';
                                 } elseif ($event_status == 'C') {
