@@ -54,7 +54,7 @@
                         <tr>
                             <th><label for="student_pwd">Password</label></th>
                             <th>:</th>
-                            <td><textarea rows="1" name="student_pwd" id="student_pwd" required></textarea></td>
+                            <td><input type="password" rows="1" name="student_pwd" id="student_pwd" required></td>
                         </tr>
                         <tr>
                             <th><label for="student_email">E-mail</label></th>
@@ -75,7 +75,7 @@
                             <th><label for="student_profilePic">Profile Picture</label></th>
                             <th>:</th>
                             <td>
-                                <input type="file" name="student_profilePic" id="student_profilePic" accept=".jpg, .jpeg, .png">
+                                <input type="file" name="student_profilePic" id="student_profilePic" accept=".jpg, .jpeg, .png" required>
                             </td>
                         </tr>
                     </table>
@@ -151,7 +151,7 @@
                     if($uploadstat == 1){
                         $sql = "INSERT INTO student (student_name, student_ic ,student_id, student_pwd, student_email, student_phone, 
                                 student_address, student_profilePic)
-                                VALUES ('$student_profilePic', '$student_ic', '$student_id', '$pwd_hash', '$student_email', 
+                                VALUES ('$student_name', '$student_ic', '$student_id', '$pwd_hash', '$student_email', 
                                 '$student_phone', '$student_address', '$imgnewname')";
                         $status = insert_to_table($conn, $sql);
 

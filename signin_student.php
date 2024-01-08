@@ -55,21 +55,25 @@
     </body>
     <?php
         include ('config.php');
+        session_start();
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $student_id = strtoupper(trim($_POST['student_id']));
             $student_pwd = trim($_POST['student_pwd']);
 
-            $sql = "SELECT * FROM student WHERE student_id='$student_id' AND student_pwd='$student_pwd'";
+            $sql = "SELECT * FROM student WHERE student_id='$student_id'";
             $result = mysqli_query($conn, $sql);
 
             if(mysqli_num_rows($result) > 0){
                 $row = mysqli_fetch_assoc($result);
                 if(password_verify($student_pwd, $row['student_pwd'])){
-                    $_SESSION['uid'] = $student_id;
-                    header("location: student_home.php");
+                    $_SESSION['student_id'] = $student_id;
+                    header("location: eventboard.php");
                     exit();
                 }
+                else{
+                    echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
+                } 
             }
             else{
                 echo '<script>popup_page_stay("Username or Password is incorrect")</script>';

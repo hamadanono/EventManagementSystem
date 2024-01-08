@@ -18,7 +18,7 @@
 	    <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
-    <body>
+    <body onload="auto_open_popup('popup_form')">
         <script src="script/script.js"></script>
 
         <div class="header-row">
@@ -39,9 +39,9 @@
             </div>
         </div>
 
-        <div id="popup_page_stay" class="popup-container">
+        <div id="popup" class="popup-container">
             <div class="popup-content">
-                <p id="popup_message_stay"></p>
+                <p id="popup_message"></p>
                 <button class="button" onclick="location.href='pmfki.php'">Close</button>
             </div>
         </div>
@@ -49,37 +49,55 @@
         <!-- Form Popup -->
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
-                <form action="pmfki.php" method="POST" enctype="multipart/form-data">
+                <form action="pmfki_edit.php" method="POST">
+                <input type="text" id="pmfki_id" name="pmfki_id" value="<?= $_GET['id'] ?>" hidden>
+                    <?php
+                        if(isset($_GET['id'])){
+                            $pmfkiId = $_GET['id'];
+                            $sql = "SELECT * FROM pmfki WHERE pmfki_id = '$pmfkiId'";
+                            $result = mysqli_query($conn, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $ret_pmfki_name = $row["pmfki_name"];
+                                $ret_pmfki_ic = $row["pmfki_ic"];
+                                $ret_pmfki_id = $row["pmfki_id"];
+                                $ret_pmfki_pwd = $row["pmfki_pwd"];
+                                $ret_pmfki_phone = $row["pmfki_phone"];
+                    
+                            }
+                        }
+                    ?>
                     <h2>Create New Account For PMFKI</h2>
                     <table>
                         <tr>
                             <th>Name</th>
                             <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_name" required></td>
+                            <td><input type="text" name="pmfki_name" value='<?php echo"$ret_pmfki_name"?>'></td>
                         </tr>
                         <tr>
                             <th>Identity Card Number</th>
                             <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_ic" required></td>
+                            <td><input type="text" name="pmfki_ic" value='<?php echo"$ret_pmfki_ic"?>'></td>
                         </tr>
                         <tr>
                             <th>Matrics Number</th>
                             <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_id" required></td>
+                            <td class="id"><?php echo"$ret_pmfki_id"?></td>
                         </tr>
                         <tr>
-                            <th>Password</th>
+                            <th>New Password</th>
                             <td class="fill">:</td>
-                            <td><input type="password" name="pmfki_pwd" required></td>
+                            <td><input type="password" name="pmfki_pwd"></td>
                         </tr>
                         <tr>
                             <th>Phone Number</th>
                             <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_phone" required></td>
+                            <td><input type="text" name="pmfki_phone" value='<?php echo"$ret_pmfki_phone"?>'></td>
                         </tr>
                     </table>
                     <br>
-                    <button class="normal-btn" type="submit" name="confirm">Confirm</button>
+                    <button class="normal-btn" type="button" value"" onclick="location.href='pmfki.php'">Cancel</button>  
+                    <button class="normal-btn" type="submit" name="confirm">Confirm</button>  
                 </form>
             </div>
         </div>
@@ -130,35 +148,37 @@
         </div>
     </body>
     <?php
-        function insert_to_table($conn, $sql){
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } 
-            else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
+        function update_table($conn, $sql){
+			if (mysqli_query($conn, $sql)) {
+				return true;
+			} else {
+				echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
+				return false;
+			}
+		}
 
         if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $pmfki_id = $_POST['pmfki_id'];
             $pmfki_name = strtoupper(trim($_POST["pmfki_name"]));
-            $pmfki_id = strtoupper(trim($_POST["pmfki_id"]));
-            $pmfki_pwd = strtoupper(trim($_POST["pmfki_pwd"]));
             $pmfki_ic = trim($_POST["pmfki_ic"]);
             $pmfki_phone = trim($_POST["pmfki_phone"]);
-            $pwd_hash = trim(password_hash($_POST["pmfki_pwd"], PASSWORD_DEFAULT));
-
+            $pmfki_pwd = trim($_POST["pmfki_pwd"]);
+            
             if(isset($_POST["confirm"])){
-                $sql = "INSERT INTO pmfki (pmfki_name, pmfki_ic, pmfki_id, pmfki_phone, pmfki_pwd)
-                        VALUES ('$pmfki_name', '$pmfki_ic', '$pmfki_id', '$pmfki_phone', '$pwd_hash')";
-                $status = insert_to_table($conn, $sql);
-    
-                if($status){
-                    echo '<script>popup_page_stay("New PMFKI account has been created");</script>';
+                if ($pmfki_pwd == "") {
+                    $sql = "UPDATE pmfki SET pmfki_name = '$pmfki_name', pmfki_ic = '$pmfki_ic', pmfki_phone = '$pmfki_phone' WHERE pmfki_id = '$pmfki_id'";
+                    $status = update_table($conn, $sql);
+                } else {
+                    $pwd_hash = trim(password_hash($_POST["pmfki_pwd"], PASSWORD_DEFAULT));
+                    $sql = "UPDATE pmfki SET pmfki_name = '$pmfki_name', pmfki_ic = '$pmfki_ic', pmfki_phone = '$pmfki_phone', pmfki_pwd = '$pwd_hash' WHERE pmfki_id = '$pmfki_id'";
+                    $status = update_table($conn, $sql);
                 }
-                else{
-                    echo '<script>popup_page_stay("There was an error creating a new account");</script>';
-                }
+            }
+            if($status){
+                echo '<script>auto_popup_message("PMFKI account with matrics number ' . $pmfki_id . ' has been updated");</script>';
+            }
+            else{
+                echo '<script>auto_popup_message("There was an error updating ' . $pmfki_id . ' account");</script>';
             }
         }
     ?>

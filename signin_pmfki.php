@@ -47,6 +47,7 @@
             </div>
         </div>
     </body>
+
     <?php
         include ('config.php');
 
@@ -54,16 +55,20 @@
             $pmfki_id = strtoupper(trim($_POST['pmfki_id']));
             $pmfki_pwd = trim($_POST['pmfki_pwd']);
 
-            $sql = "SELECT * FROM pmfki WHERE pmfki_id='$pmfki_id' AND pmfki_pwd='$pmfki_pwd'";
+            $sql = "SELECT * FROM pmfki WHERE pmfki_id='$pmfki_id'";
             $result = mysqli_query($conn, $sql);
 
             if(mysqli_num_rows($result) > 0){
                 $row = mysqli_fetch_assoc($result);
                 if(password_verify($pmfki_pwd, $row['pmfki_pwd'])){
-                    $_SESSION['uid'] = $pmfki_id;
-                    header("location: pmfki_home.php");
+                    session_start();
+                    $_SESSION['pmfki_id'] = $pmfki_id;
+                    header("location: proposal_pmfki.php");
                     exit();
                 }
+                else{
+                    echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
+                } 
             }
             else{
                 echo '<script>popup_page_stay("Username or Password is incorrect")</script>';

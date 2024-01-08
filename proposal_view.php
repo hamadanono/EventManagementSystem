@@ -1,15 +1,11 @@
 <?php
-include("config.php");
+    include('config.php');
+	session_start();
 
-// Start or resume the session
-session_start();
-
-// Check if the user is not logged in, redirect to the login page
-// if (!isset($_SESSION['pmfki_id'])) {
-//     header("Location: index.php");
-//     exit();
-// }
-
+    if(!isset($_SESSION['pmfki_id'])){
+		header("location: index.php");
+		exit();
+	}
 ?>
 
 <!DOCTYPE html>

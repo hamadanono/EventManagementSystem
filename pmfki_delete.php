@@ -18,7 +18,7 @@
 	    <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
-    <body>
+    <body onload="auto_open_popup('popup_form')">
         <script src="script/script.js"></script>
 
         <div class="header-row">
@@ -39,46 +39,19 @@
             </div>
         </div>
 
-        <div id="popup_page_stay" class="popup-container">
+        <div id="popup" class="popup-container">
             <div class="popup-content">
-                <p id="popup_message_stay"></p>
+                <p id="popup_message"></p>
                 <button class="button" onclick="location.href='pmfki.php'">Close</button>
             </div>
         </div>
 
-        <!-- Form Popup -->
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
-                <form action="pmfki.php" method="POST" enctype="multipart/form-data">
-                    <h2>Create New Account For PMFKI</h2>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_name" required></td>
-                        </tr>
-                        <tr>
-                            <th>Identity Card Number</th>
-                            <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_ic" required></td>
-                        </tr>
-                        <tr>
-                            <th>Matrics Number</th>
-                            <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_id" required></td>
-                        </tr>
-                        <tr>
-                            <th>Password</th>
-                            <td class="fill">:</td>
-                            <td><input type="password" name="pmfki_pwd" required></td>
-                        </tr>
-                        <tr>
-                            <th>Phone Number</th>
-                            <td class="fill">:</td>
-                            <td><input type="text" name="pmfki_phone" required></td>
-                        </tr>
-                    </table>
-                    <br>
+                <p>Are you sure you want to delete this PMFKI account??</p>
+                <form action="pmfki_delete.php?id=<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" method="POST"> 
+                    <input type="text" id="pmfki_id" name="pmfki_id" value="<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" hidden>
+                    <button class="normal-btn" type="button" action="" onclick="location.href='pmfki.php'">Cancel</button>
                     <button class="normal-btn" type="submit" name="confirm">Confirm</button>
                 </form>
             </div>
@@ -130,35 +103,20 @@
         </div>
     </body>
     <?php
-        function insert_to_table($conn, $sql){
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } 
-            else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
-
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $pmfki_name = strtoupper(trim($_POST["pmfki_name"]));
-            $pmfki_id = strtoupper(trim($_POST["pmfki_id"]));
-            $pmfki_pwd = strtoupper(trim($_POST["pmfki_pwd"]));
-            $pmfki_ic = trim($_POST["pmfki_ic"]);
-            $pmfki_phone = trim($_POST["pmfki_phone"]);
-            $pwd_hash = trim(password_hash($_POST["pmfki_pwd"], PASSWORD_DEFAULT));
-
+            $pmfki_id = $_POST['pmfki_id'];
+            
             if(isset($_POST["confirm"])){
-                $sql = "INSERT INTO pmfki (pmfki_name, pmfki_ic, pmfki_id, pmfki_phone, pmfki_pwd)
-                        VALUES ('$pmfki_name', '$pmfki_ic', '$pmfki_id', '$pmfki_phone', '$pwd_hash')";
-                $status = insert_to_table($conn, $sql);
-    
-                if($status){
-                    echo '<script>popup_page_stay("New PMFKI account has been created");</script>';
+                $sql = "DELETE FROM pmfki WHERE pmfki_id = '$pmfki_id'";
+                $delsql = "DELETE FROM event WHERE pmfki_id = '$pmfki_id'";
+                $result = mysqli_query($conn, $delsql);
+                if (mysqli_query($conn, $sql) && $result) {
+                    echo '<script>auto_popup_message("PMFKI account with matrics number ' . $pmfki_id . ' has been deleted");</script>';
                 }
                 else{
-                    echo '<script>popup_page_stay("There was an error creating a new account");</script>';
+                    echo '<script>auto_popup_message("There was an error deleting ' . $pmfki_id . ' account");</script>';
                 }
+                
             }
         }
     ?>
