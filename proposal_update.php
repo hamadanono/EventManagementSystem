@@ -197,14 +197,14 @@
             //values for add or edit
             $event_id = $_POST['event_id'];
             $event_name = trim($_POST["event_name"]);
-            $event_synopsis = trim($_POST["event_synopsis"]);
-            $event_objective = trim($_POST["event_objective"]);
-            $event_impact = trim($_POST["event_impact"]);
+            $event_synopsis = trim(mysqli_real_escape_string($conn,$_POST["event_synopsis"]));
+            $event_objective = trim(mysqli_real_escape_string($conn,$_POST["event_objective"]));
+            $event_impact = trim(mysqli_real_escape_string($conn,$_POST["event_impact"]));
             $event_startDate = $_POST["event_startDate"];
             $event_endDate = $_POST["event_endDate"];
             $event_startTime = $_POST["event_startTime"];
             $event_endTime = $_POST["event_endTime"];
-            $event_venue =  trim($_POST["event_venue"]);
+            $event_venue =  trim(mysqli_real_escape_string($conn,$_POST["event_venue"]));
 
             if(isset($_POST["confirm"])){
                 $sql = "UPDATE event SET event_name = '$event_name', event_synopsis = '$event_synopsis', event_objective = '$event_objective', 

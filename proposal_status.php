@@ -21,7 +21,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['approve'])) {
         // Values for add or edit
         $event_id = $_POST['event_id'];
-        $admin_id = $_POST['admin_id'];
+        //$admin_id = $_POST['admin_id'];
         //, admin_id = ".$_SESSION["admin_id"]."  (add in sql below)
 
         $sql = "UPDATE event SET event_status = 'C', event_adminRemark = '', admin_id = '{$_SESSION["admin_id"]}' WHERE event_id = '$event_id'";

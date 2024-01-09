@@ -23,7 +23,7 @@
         $event_id = $_POST['event_id'];
         $event_pwd = $_POST['event_pwd'];
         $event_status = $_POST['event_status'];
-        $event_posterDesc= $_POST['event_posterDesc'];
+        $event_posterDesc= mysqli_real_escape_string($conn, $_POST['event_posterDesc']);
 
         $target_dir = "uploads/poster/";
 

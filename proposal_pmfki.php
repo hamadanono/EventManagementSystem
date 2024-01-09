@@ -217,15 +217,15 @@
         //this block is called when button Submit is clicked
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //values for add or edit
-            $name = trim($_POST["name"]);
+            $name = trim(mysqli_real_escape_string($conn,$_POST["name"]));
             $startDate = $_POST["startDate"];
             $endDate = $_POST["endDate"];
             $startTime = $_POST["startTime"];
             $endTime = $_POST["endTime"];
-            $venue =  trim($_POST["venue"]);
-            $synopsis = trim($_POST["synopsis"]);
-            $objective = trim($_POST["objective"]);
-            $impact = trim($_POST["impact"]);
+            $venue =  trim(mysqli_real_escape_string($conn, $_POST['venur']));
+            $synopsis = trim(mysqli_real_escape_string($conn,$_POST["synopsis"]));
+            $objective = trim(mysqli_real_escape_string($conn,$_POST["objective"]));
+            $impact = trim(mysqli_real_escape_string($conn,$_POST["impact"]));
         
             $sql = "INSERT INTO event (event_name, event_synopsis, event_objective, event_impact,
             event_startDate, event_endDate, event_startTime, event_endTime, event_venue, event_status, pmfki_id)
