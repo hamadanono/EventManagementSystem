@@ -164,7 +164,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <button class="accept-btn" type="submit" name="approve" onclick="return confirm('Approve the proposal?')">Approve</button>
+                                    <button class="accept-btn" type="submit" name="approve" onclick="window.location.href = 'proposal_status.php?id=<?php echo $event_id; ?>'">Approve</button>
                                     <button class="decline-btn" type="button" onclick="window.location.href = 'proposal_status_decline.php?id=<?php echo $event_id; ?>'">Decline</button>
                                     <button class="normal-btn" type="button" name="back" value="Back" onclick="location.href='proposal_admin.php'">Back</button>
                                 </td>
