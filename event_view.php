@@ -79,10 +79,10 @@ if(!isset($_SESSION['pmfki_id'])){
             <h1 class="header_1">Event Details</h1>
             <div class="event-view-row">
                     <div class="col-left"> 
-                        <img src="uploads/poster/<?php echo $event_poster; ?>" alt="poster img" class="view-event-poster">
+                        <img src="uploads/poster/<?php echo $event_poster; ?>" alt="Poster Image" class="view-event-poster">
                     </div>
                     <div class="col-right"> 
-                        <table class="event-view-table" >
+                        <table border="1" class="event-view-table" >
                         <tr>
                             <th>Event Name</th>
                             <th class="fill">:</b></td>
@@ -149,7 +149,7 @@ if(!isset($_SESSION['pmfki_id'])){
                             <th class="fill">:</th>
                             <td>
                                 <?php
-                                // Assuming $event_status contains the status (A or C)
+                                // Assuming $event_status contains the status (A or C or F)
                                 if ($event_status == 'A') {
                                     echo "<p class='stat-active'>ACTIVATE</p>";
                                 } elseif ($event_status == 'C') {
@@ -174,7 +174,7 @@ if(!isset($_SESSION['pmfki_id'])){
                             <td>
                                 <div>
                                     <button class="accept-btn" type="button" onclick="window.location.href='event_update.php?id=<?php echo $event_id; ?>'">Update</button> 
-                                    <button class="decline-btn" type="button" id="delete-button" onclick="if(confirm('Delete the event?')) { window.location.href = 'event_delete.php?id=<?php echo $event_id; ?>'; }">Delete</button>
+                                    <button class="decline-btn" type="button" onclick="if(confirm('Delete the event?')) { window.location.href = 'event_delete.php?id=<?php echo $event_id; ?>'; }">Delete</button>
                                 </div>
                             </td>
                         </tr>

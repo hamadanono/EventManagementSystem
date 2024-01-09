@@ -196,116 +196,120 @@
             }
         ?>
 
-        <h2>View Event Details</h2>
-        <br>
+        <h1 class="header_1">Update Event Details</h1>
         <div class="event-view-row">
             <div class="col-left"> 
-                <br>
                 <img src="uploads/poster/<?php echo $event_poster; ?>" alt="poster img" class="view-event-poster">
             </div>
-                <div class="col-right"> 
-                    <br>
-                    <form action="event_update.php" method="post" enctype="multipart/form-data">
-                        <input type="hidden" id="event_id" name="event_id" value="<?=$_GET['id']?>">
-                        <table class="update-event-table">
-                            <tr>
-                                <th>Event Name</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $event_name; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Synopsis</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $event_synopsis; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Objective</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $event_objective; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Impact</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $event_impact; ?></td>
-                            </tr>                        
-                            <tr>
-                                <th>Date</th>
-                                <td><b>:</b></td>
-                                <td>
-                                    <?php
-                                    $formattedStartDate = date("d/m/Y", strtotime($event_startDate));
-                                    $formattedEndDate = date("d/m/Y", strtotime($event_endDate));
-                                    if ($formattedStartDate == $formattedEndDate) {
-                                        echo $formattedStartDate;
-                                    } else {
-                                        echo $formattedStartDate . " - " . $formattedEndDate;
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Time</th>
-                                <td><b>:</b></td>
-                                <td>
-                                    <?php
-                                    $formattedStartTime = date("h:i A", strtotime($event_startTime));
-                                    $formattedEndTime = date("h:i A", strtotime($event_endTime));
-                                    echo $formattedStartTime . " - " . $formattedEndTime;
-                                    ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Venue</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $event_venue; ?></td>
-                            </tr>                        
-                            <tr>
-                                <th>Submitted By</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $pmfki_name; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Approved By</th>
-                                <td><b>:</b></td>
-                                <td><?php echo $admin_name; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Event Password</th>
-                                <td><b>:</b></td>
-                                <td><input type="text" name="event_pwd" value="<?php echo $event_pwd; ?>"></td>
-                            </tr>
-                            <tr>
-                                <th>Event status</th>
-                                <td><b>:</b></td>
-                                <td>
-                                    <select name="event_status">
-                                        <option value="A" <?php if ($event_status == 'A') echo 'selected'; ?>>ACTIVE</option>
-                                        <option value="C" <?php if ($event_status == 'C') echo 'selected'; ?>>CLOSED</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Poster Description</th>
-                                <td><b>:</b></td>
-                                <td><textarea name="event_posterDesc" cols="50"><?php echo $event_posterDesc; ?></textarea></td>
-                            </tr>
-                            <tr>
-                                <th>Poster</th>
-                                <td><b>:</b></td>
-                                <td>
-                                    <input type="file" name="poster-img" id="poster-img" accept=".jpg, .jpeg, .png" >
-                                </td>
-                            </tr>                        
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <input type="submit" id="update-confirm-button" value="Update">
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-        		</div>
+            <div class="col-right"> 
+                <form action="event_update.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="event_id" name="event_id" value="<?=$_GET['id']?>">
+                <table class="event-view-table">
+                        <tr>
+                            <th>Event Name</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $event_name; ?></td>
+                        </tr>
+                        <tr>
+                            <th class="synopsis">Synopsis</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $event_synopsis; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Objective</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $event_objective; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Impact</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $event_impact; ?></td>
+                        </tr>                        
+                        <tr>
+                            <th>Date</th>
+                            <th class="fill">:</th>
+                            <td>
+                                <?php
+                                $formattedStartDate = date("d/m/Y", strtotime($event_startDate));
+                                $formattedEndDate = date("d/m/Y", strtotime($event_endDate));
+
+                                if ($formattedStartDate == $formattedEndDate) {
+                                    echo $formattedStartDate;
+                                } else {
+                                    echo $formattedStartDate . " - " . $formattedEndDate;
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Time</th>
+                            <th class="fill">:</th>
+                            <td>
+                                <?php
+                                $formattedStartTime = date("h:i A", strtotime($event_startTime));
+                                $formattedEndTime = date("h:i A", strtotime($event_endTime));
+
+                                echo $formattedStartTime . " - " . $formattedEndTime;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Venue</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $event_venue; ?></td>
+                        </tr>                        
+                        <tr>
+                            <th>Submitted By</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $pmfki_name; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Approved By</th>
+                            <th class="fill">:</th>
+                            <td><?php echo $admin_name; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Event Password</th>
+                            <th class="fill">:</th>
+                            <td><input type="text" name="event_pwd" value="<?php echo $event_pwd; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th>Event status</th>
+                            <th class="fill">:</th>
+                            <td>
+                                <select name="event_status">
+                                    <option value="A" <?php if ($event_status == 'A') echo 'selected'; ?>>ACTIVE</option>
+                                    <option value="C" <?php if ($event_status == 'C') echo 'selected'; ?>>CLOSED</option>
+                                    <option value="C" <?php if ($event_status == 'F') echo 'selected'; ?>>FINISHED</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Poster Description</th>
+                            <th class="fill">:</th>
+                            <td><textarea name="event_posterDesc" rows="6"><?php echo $event_posterDesc; ?></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>Poster</th>
+                            <th class="fill">:</th>
+                            <td>
+                                <input type="file" name="poster-img" accept=".jpg, .jpeg, .png" >
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <br>
+                                <div>
+                                    <button class="normal-btn" type="button" value="" onclick="location.href='event_view.php?id=<?php echo $event_id; ?>'">Back</button>
+                                    <button class="accept-btn" type="submit" value="confirm">Confirm</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+			</div>
             </div>
         </div>
     </body>

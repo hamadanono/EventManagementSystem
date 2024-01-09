@@ -1,14 +1,11 @@
 <?php
     include("config.php");
-    
-    // Start or resume the session
-    session_start();
-    
-    // Check if the user is not logged in, redirect to the login page
-    // if (!isset($_SESSION['student_id'])) {
-    //     header("Location: index.php");
-    //     exit();
-    // }
+    session_start();    
+
+    if (!isset($_SESSION['student_id'])) {
+        header("Location: index.php");
+        exit();
+    }
     
     $currentDate = date("Y-m-d H:i:s"); 
     $studentId = "TEST"; 

@@ -57,7 +57,7 @@
                     <td width="5%">Action</td>
                 </tr>
                 <?php
-                    $sql = "SELECT * FROM event e";
+                    $sql = "SELECT * FROM event e WHERE NOT e.event_status = 'F'";
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);

@@ -8,7 +8,7 @@
     }
 
     // Use prepared statement to avoid SQL injection
-    $sql = "SELECT * FROM event WHERE event_status=? OR event_status=?";
+    $sql = "SELECT * FROM event WHERE event_status=? OR event_status=? OR event_status=?";
     $stmt = mysqli_prepare($conn, $sql);
 
     // Check if preparation was successful
@@ -16,7 +16,8 @@
         // Bind the parameters
         $event_status_A = 'A';
         $event_status_C = 'C';
-        mysqli_stmt_bind_param($stmt, "ss", $event_status_A, $event_status_C);
+        $event_status_F = 'F';
+        mysqli_stmt_bind_param($stmt, "sss", $event_status_A, $event_status_C,$event_status_F);
 
         // Execute the statement
         mysqli_stmt_execute($stmt);
@@ -66,7 +67,7 @@
         </div>
 
         <div class="table-list">
-            <h1>List of Event</h1>
+            <h1>Event List</h1>
             <table border="1" width="100%" class="event-list-table">
                 <tr>
                     <th colspan="13">LIST OF EVENTS</th>
@@ -101,6 +102,8 @@
                             echo 'status-active">ACTIVE';
                         } elseif ($row["event_status"] == 'C') {
                             echo 'status-closed">CLOSED';
+                        } elseif ($row["event_status"] == 'F') {
+                            echo 'status-closed">FINISHED';
                         }
                         echo "</td>";              
                         echo '<td> <button class="normal-btn" onclick="location.href=\'event_view.php?id=' . $row["event_id"] . '\'">View Details</button></td>';
