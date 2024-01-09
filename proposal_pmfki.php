@@ -13,7 +13,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
+        <title>PMFKI - Event Proposal</title>
         <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
     	<link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
@@ -112,7 +112,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
+                    <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
                         <td><a href="event.php" >Event List</a></td>
                         <td><a href="report.php" >Report</a></td>
                         <td><a href="signout.php">Sign Out</a></td>
@@ -124,12 +124,11 @@
         <div class="table-list">
             <h1>Event Proposal</h1>
                 <div class=middle-button>
-                    <button class="normal-btn" onclick="popup_form()">Create New Proposal</button>
+                <button class="normal-btn" onclick="popup_form()">Create New Proposal</button>
                 </div>
             <table  border="1" width="100%" class="event-list-table">
                 <tr>
                     <th colspan="13">LIST OF PROPOSAL</th>
-                    </thead>
                 </tr>
                 <tr>
                     <td width="2%">No</td>
@@ -177,11 +176,11 @@
 
                             $event_status = $row["event_status"];
                             if ($event_status == 'A' || $event_status == 'C') {
-                                echo "<td class='status-active'>Approved</td>";
+                                echo "<td class='status-active'>APPROVED</td>";
                             } else if ($event_status == 'P') {
-                                echo "<td class='status-pending'>Pending</td>";
+                                echo "<td class='status-pending'>PENDING</td>";
                             } else if ($event_status == 'D') {
-                                echo "<td class='status-closed' >Declined</td>";
+                                echo "<td class='status-closed' >DECLINED</td>";
                             } else {
                                 echo "<td>" . $row["event_status"] . "</td>";
                             }
@@ -232,7 +231,6 @@
             event_startDate, event_endDate, event_startTime, event_endTime, event_venue, event_status, pmfki_id)
             VALUES ('$name', '$synopsis', '$objective', '$impact', '$startDate',
             '$endDate', '$startTime', '$endTime', '$venue', 'P', '" . $_SESSION["pmfki_id"] . "')";
-
         
             $status = insertTo_DBTable($conn, $sql);
             if ($status) {
@@ -255,5 +253,4 @@
             }
         }
     ?>
-
 </html>

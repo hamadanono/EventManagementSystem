@@ -1005,7 +1005,7 @@ body {
 /***********************|
 |       EVENTBOARD      |
 |***********************/
-.eventboard-row{
+/* .eventboard-row{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1023,17 +1023,44 @@ body {
     margin-bottom: 40px;
     border-radius: 30px;
     width: 80%;
+} */
+
+.eventboard-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto;
 }
+
+.event-board-div {
+    background-color: #694694;
+    box-shadow: 0 8px 12px rgba(0.1, 0.1, 0.1, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    width: 48%; /* Adjust as needed, leaving some space for margins */
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 
 .table-event-board img{
-    border: 1px solid white;
+    /* border: 1px solid white; */
     border-radius: 10px;
-    width: 30%;
-    flex: 20%;
+    width: 100%;
+    max-height: auto;
     padding: 0;
+    align-self: center;
 }
 
+/* max-height: 192px;
+max-width: 100%;
+vertical-align: middle */
+
 .table-event-board{
+    width: 100%;
+    height: 100%;
     border: none;
     margin: 0;
     padding: 0;
@@ -1042,20 +1069,16 @@ body {
 .table-event-board th{
     border: none;
     border: 1px solid white;
-    margin: 0;
-    padding: 0;
-    padding-right: 20%;
-
+    width: 30%;
+    padding: 5px;
 }
 
 .table-event-board td{
     border: 1px solid white;
-    flex: 70%;
-    margin: 0;
-    padding: 0;
+    width: 70%;
+    padding: 5px;
+    text-align: justify;
 }
-
-
 
 
 
