@@ -154,6 +154,8 @@ if(!isset($_SESSION['pmfki_id'])){
                                     echo "<p class='stat-active'>ACTIVATE</p>";
                                 } elseif ($event_status == 'C') {
                                     echo "<p class='stat-closed'>CLOSED</p>";
+                                } elseif ($event_status == 'F') {
+                                    echo "<p class='stat-closed'>FINISHED</p>";
                                 }
                                 ?>
                             </td>
