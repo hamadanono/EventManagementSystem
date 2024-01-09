@@ -157,7 +157,7 @@
                 // Add a form for the "JOIN EVENT" button
                 echo '<form method="post" action="eventboard.php">';
                 echo '<input type="hidden" name="event_id_to_join" value="' . $row['event_id'] . '">';
-                echo '<td><button type="submit" name="join_event" id="joinbutton">JOIN</button></td>';
+                echo '<td><button type="submit" name="join_event" class="accept-btn">JOIN</button></td>';
                 echo '</form>';
             echo '</tr>';
             echo '</table>';
