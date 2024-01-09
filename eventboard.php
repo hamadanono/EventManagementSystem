@@ -119,60 +119,58 @@
             </div>
         </div>
         <div class="table-list">        
-<h1>Available Events</h1>
-<div class="eventboard-row">
-    <?php
-    if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        $numrow = 1;
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<div class="event-board-div">';
-            echo '<table class="table-event-board">';
-            echo '<tr>';
-            echo '<th rowspan="6"><img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="event-poster"></th>';
-            echo '<td><h2>' . $row["event_name"] . '</h2></td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>' . $row["event_posterDesc"] . '</td>';
-            echo '</tr>';
-            echo '<tr>';
-            $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
-            $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
-
-            if ($startDateFormat == $endDateFormat) {
-                echo '<td>' . '<b>Date : </b>' . $startDateFormat . '</td>';
-            } else {
-                echo '<td>' . '<b>Date : </b>' . $startDateFormat . ' - ' . $endDateFormat . '</td>';
-            }
-            echo '</tr>';
-            echo '<tr>';
-            $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
-            $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
-            echo '<td>' . '<b>Time : </b>' . $startTime12Hour . ' - ' . $endTime12Hour . '</td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>' . '<b>Venue : </b>' . $row["event_venue"] . '</td>';
-            echo '</tr>';
-            echo '<tr>';
-                // Add a form for the "JOIN EVENT" button
-                echo '<form method="post" action="eventboard.php">';
-                echo '<input type="hidden" name="event_id_to_join" value="' . $row['event_id'] . '">';
-                echo '<td><button type="submit" name="join_event" id="joinbutton">JOIN</button></td>';
-                echo '</form>';
-            echo '</tr>';
-            echo '</table>';
-            echo '</div>';
-            $numrow++;
-        }
-    } else {
-        echo '<tr><td colspan="6">0 results</td></tr>';
-    }
-
-    mysqli_close($conn);
-    ?>
-</div>
-</div>
-
-  
+            <h1>Available Events</h1>
+            <div class="eventboard-row">
+                <?php
+                if (mysqli_num_rows($result) > 0) {
+                    // output data of each row
+                    $numrow = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<div class="event-board-div">';
+                        echo '<table class="table-event-board">';
+                        echo '<tr>';
+                        echo '<th rowspan="6"><img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="event-poster"></th>';
+                        echo '<td><h2>' . $row["event_name"] . '</h2></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                        echo '<td>' . $row["event_posterDesc"] . '</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                        $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
+                        $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
+                    
+                        if ($startDateFormat == $endDateFormat) {
+                            echo '<td>' . '<b>Date : </b>' . $startDateFormat . '</td>';
+                        } else {
+                            echo '<td>' . '<b>Date : </b>' . $startDateFormat . ' - ' . $endDateFormat . '</td>';
+                        }
+                        echo '</tr>';
+                        echo '<tr>';    
+                        $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
+                        $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
+                        echo '<td>' . '<b>Time : </b>' . $startTime12Hour . ' - ' . $endTime12Hour . '</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                        echo '<td>' . '<b>Venue : </b>' . $row["event_venue"] . '</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                            // Add a form for the "JOIN EVENT" button
+                            echo '<form method="post" action="eventboard.php">';
+                            echo '<input type="hidden" name="event_id_to_join" value="' . $row['event_id'] . '">';
+                            echo '<td><button type="submit" name="join_event" id="joinbutton">JOIN</button></td>';
+                            echo '</form>';
+                        echo '</tr>';
+                        echo '</table>';
+                        echo '</div>';
+                        $numrow++;
+                    }
+                } else {
+                    echo '<tr><td colspan="6" class="no-event">There Are No Available Event Right Now</td></tr>';
+                }
+            
+                mysqli_close($conn);
+                ?>
+            </div>
+        </div>
     </body>
 </html>

@@ -82,7 +82,7 @@ if(!isset($_SESSION['pmfki_id'])){
                         <img src="uploads/poster/<?php echo $event_poster; ?>" alt="Poster Image" class="view-event-poster">
                     </div>
                     <div class="col-right"> 
-                        <table border="1" class="event-view-table" >
+                        <table class="event-view-table" >
                         <tr>
                             <th>Event Name</th>
                             <th class="fill">:</b></td>
