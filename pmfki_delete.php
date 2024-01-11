@@ -23,7 +23,7 @@
 
         <div class="header-row">
             <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
+                <img src="src/icon.png" alt="Website Logo">
                 <h2>
                     <span>FKI</span>
                     <span>EVENT</span>
@@ -31,9 +31,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_admin.php">Event Proposal</a></td>
-                        <td><a href="pmfki.php" class="active">PMFKI</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_admin.php')?>
                     </tr>
                 </table>
             </div>

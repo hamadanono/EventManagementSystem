@@ -95,14 +95,14 @@
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
         <title>Student - Event Board</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
+        <link rel="icon" type="image/png" href="src/icon.png">
 	    <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
     <body>
         <div class="header-row">
             <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
+                <img src="src/icon.png" alt="Website Logo">
                 <h2>
                     <span>FKI</span>
                     <span>EVENT</span>
@@ -110,10 +110,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="eventboard.php" class="active">Event Board</a></td>
-                        <td><a href="joined_event.php">Joined Event</a></td>
-                        <td><a href="">Feedback</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_student.php') ?>
                     </tr>
                 </table>
             </div>
@@ -165,7 +162,7 @@
                         $numrow++;
                     }
                 } else {
-                    echo '<tr><td colspan="6" class="no-event">There Are No Available Event Right Now</td></tr>';
+                    echo '<p class="no-event">There Are No Available Event Right Now</p>';
                 }
             
                 mysqli_close($conn);

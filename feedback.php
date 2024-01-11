@@ -1,14 +1,11 @@
 <?php
 include("config.php");
-
-// Start or resume the session
 session_start();
 
-// Check if the user is not logged in, redirect to the login page
-// if (!isset($_SESSION['admin_id'])) {
-//     header("Location: index.php");
-//     exit();
-// }
+if (!isset($_SESSION['student_id'])) {
+    header("Location: index.php");
+    exit();
+}
 
 ?>
 
@@ -16,22 +13,33 @@ session_start();
 <html>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <header>
-    <img class="banner" src="img/banner.png">
-    </header>
-</head>
-<body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
+        <title>Student - Event Board</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/png" href="src/icon.png">
+	    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
+    </head>
+    <body>
 
-<div class="header">
-    <h1>Feedback</h1>
-</div>
-
-<?php include("navigation_student.php"); ?>
-<br>
+    <div class="header-row">
+            <div class="header-main">
+                <img src="src/icon.png" alt="Website Logo">
+                <h2>
+                    <span>FKI</span>
+                    <span>EVENT</span>
+                    <span>MANAGEMENT</span>
+                </h2>
+                <table class="header-nav">
+                    <tr>
+                        <?php include ('navigation_student.php') ?>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
 <h2  align="center">My Feedback</h2>
 
@@ -50,7 +58,7 @@ session_start();
             $sql = "SELECT f.*, e.event_name
                     FROM feedback f
                     LEFT JOIN event e ON f.event_id = e.event_id
-                    WHERE f.student_id='TEST'"; //WHERE student_id=". $_SESSION["student_id"];
+                    WHERE f.student_id=". $_SESSION["student_id"]; //WHERE student_id=". $_SESSION["student_id"];
                     
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_execute($stmt);
@@ -90,10 +98,10 @@ session_start();
                             $sql = "SELECT e.event_id, e.event_name
                                     FROM event e
                                     JOIN attendee a ON e.event_id = a.event_id
-                                    WHERE a.student_id = 'TEST' AND a.attendance_status = 'A' AND e.event_status = 'A'
+                                    WHERE a.student_id = ? AND a.attendance_status = 'A' AND e.event_status = 'A'
                                     AND NOT EXISTS 
                                     (SELECT 1 FROM feedback f 
-                                    WHERE f.event_id = e.event_id AND f.student_id = 'TEST')";
+                                    WHERE f.event_id = e.event_id AND f.student_id = ?)";
                             //WHERE a.student_id = ". $_SESSION["student_id"...];
                             //WHERE ... f.student_id = ". $_SESSION["student_id"];
                             $stmt = mysqli_prepare($conn, $sql);

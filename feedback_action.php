@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment =  trim($_POST["comment"]);
 
     $sql = "INSERT INTO feedback (rating, comment, event_id, student_id) 
-    VALUES ('" . $rating . "', '". $comment . "', '" . $event_id . "', 'TEST')"; /* change TEST to: , ".$_SESSION["student_id"]."*/
+    VALUES ('" . $rating . "', '". $comment . "', '" . $event_id . "', $_SESSION['student_id'])"; /* change TEST to: , ".$_SESSION["student_id"]."*/
 
     $status = insertTo_DBTable($conn, $sql);
     if ($status) {

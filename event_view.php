@@ -29,17 +29,13 @@ if(!isset($_SESSION['pmfki_id'])){
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" >Event Proposal</a></td>
-                        <td><a href="event.php" class="active">Event List</a></td>
-                        <td><a href="report.php">Report</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_pmfki.php') ?>
                     </tr>
                 </table>
             </div>
         </div>
+
         <?php
-
-
             if(isset($_GET["id"]) && $_GET["id"] != ""){
                 $sql = "SELECT e.*, p.pmfki_name, a.name
                 FROM event e
@@ -154,6 +150,8 @@ if(!isset($_SESSION['pmfki_id'])){
                                     echo "<p class='stat-active'>ACTIVATE</p>";
                                 } elseif ($event_status == 'C') {
                                     echo "<p class='stat-closed'>CLOSED</p>";
+                                } elseif ($event_status == 'F') {
+                                    echo "<p class='stat-closed'>FINISHED</p>";
                                 }
                                 ?>
                             </td>
@@ -173,6 +171,7 @@ if(!isset($_SESSION['pmfki_id'])){
                             <td></td>
                             <td>
                                 <div>
+                                    <button class="normal-btn" type="button" value="" onclick="location.href='event.php'">Back</button>
                                     <button class="accept-btn" type="button" onclick="window.location.href='event_update.php?id=<?php echo $event_id; ?>'">Update</button> 
                                     <button class="decline-btn" type="button" onclick="if(confirm('Delete the event?')) { window.location.href = 'event_delete.php?id=<?php echo $event_id; ?>'; }">Delete</button>
                                 </div>

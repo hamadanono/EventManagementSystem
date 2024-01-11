@@ -3,8 +3,9 @@
     
     $pages = array(
         'eventboard.php' => 'Event Board',
-        'dummyjoin.php' => 'Joined Event',
+        'joined_event.php' => 'Joined Event',
         'feedback.php' => 'Feedback',
+        'student_profile.php' => 'Profile',
         'signout.php' => 'Sign Out'
     );
     

@@ -21,47 +21,31 @@ function popup_form(){
 }
 
 function confirmUnjoin(eventId) {
-    // Get the confirmation pop-up element
     var popup = document.getElementById('unjoin_confirmation_popup');
-    
-    // Set the event ID in a hidden input for later use
     document.getElementById('event_id_to_unjoin').value = eventId;
-
-    // Show the confirmation pop-up
     popup.style.display = 'flex';
 }
 
 function cancelUnjoin() {
-    // Get the confirmation pop-up element
     var popup = document.getElementById('unjoin_confirmation_popup');
-
-    // Hide the confirmation pop-up
     popup.style.display = 'none';
 }
 
 function confirmUnjoinAction() {
-    // Get the event ID to unjoin from the hidden input
     var eventIdToUnjoin = document.getElementById('event_id_to_unjoin').value;
-
-    // Redirect to the unjoin script passing event ID
     window.location.href = 'unjoin_event.php?event_id=' + eventIdToUnjoin;
 }
 
 function recordAttendance(eventId) {
-    // Show the attendance password pop-up
     var passwordPopup = document.getElementById('attendance_password_popup');
     passwordPopup.style.display = 'flex';
-
-    // Set the event ID in a hidden input for later use
     document.getElementById('event_id_for_attendance').value = eventId;
 }
 
 function submitAttendancePassword() {
     var eventIdForAttendance = document.getElementById('event_id_for_attendance');
     var eventPassword = document.getElementById('event_password');
-
     if (eventIdForAttendance && eventPassword) {
-        // Send the event ID and password to the server for verification
         window.location.href = 'update_attendance.php?event_id=' + eventIdForAttendance.value + '&event_pwd=' + eventPassword.value;
     }
 }
@@ -72,6 +56,10 @@ function closeAttendanceSuccessPopup() {
 
 function closeWrongPasswordPopup() {
     document.getElementById('wrong_password_popup').style.display = 'none';
+}
+
+function open_change_pass(){
+    document.getElementById("popup-form").style.display = "flex";
 }
 
 /**********************|

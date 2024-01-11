@@ -31,10 +31,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
-                        <td><a href="event.php">Event List</a></td>
-                        <td><a href="report.php" >Report</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_pmfki.php') ?>
                     </tr>
                 </table>
             </div>
@@ -170,7 +167,7 @@
                             <td>
                                 <br>
                                 <div>
-                                    <button class="normal-btn" type="submit" name="confirm">Confirm</button>
+                                    <button class="accept-btn" type="submit" name="confirm">Confirm</button>
                                     <button class="normal-btn" type="button" onclick="location.href='proposal_view.php?id=<?php echo $event_id; ?>'">Back</button>
                                 </div>
                             </td>
@@ -197,14 +194,14 @@
             //values for add or edit
             $event_id = $_POST['event_id'];
             $event_name = trim($_POST["event_name"]);
-            $event_synopsis = trim($_POST["event_synopsis"]);
-            $event_objective = trim($_POST["event_objective"]);
-            $event_impact = trim($_POST["event_impact"]);
+            $event_synopsis = trim(mysqli_real_escape_string($conn,$_POST["event_synopsis"]));
+            $event_objective = trim(mysqli_real_escape_string($conn,$_POST["event_objective"]));
+            $event_impact = trim(mysqli_real_escape_string($conn,$_POST["event_impact"]));
             $event_startDate = $_POST["event_startDate"];
             $event_endDate = $_POST["event_endDate"];
             $event_startTime = $_POST["event_startTime"];
             $event_endTime = $_POST["event_endTime"];
-            $event_venue =  trim($_POST["event_venue"]);
+            $event_venue =  trim(mysqli_real_escape_string($conn,$_POST["event_venue"]));
 
             if(isset($_POST["confirm"])){
                 $sql = "UPDATE event SET event_name = '$event_name', event_synopsis = '$event_synopsis', event_objective = '$event_objective', 
