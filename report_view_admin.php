@@ -6,6 +6,7 @@
     $takeurl = parse_url($pageurl);
     parse_str($takeurl['query'], $id);
 
+    // Check if 'id' parameter exists and get its value
     if (isset($id['id'])) {
         $event_id = $id['id'];
         $sql = "SELECT e.*, s.student_id, s.student_name, f.rating, f.comment, att.attendance_status
@@ -23,7 +24,7 @@
         $result = mysqli_stmt_get_result($stmt);
     }
 
-    if (!isset($_SESSION['pmfki_id'])) {
+    if (!isset($_SESSION['admin_id'])) {
         header("location: index.php");
         exit();
     }
@@ -54,7 +55,7 @@
                     </h2>
                     <table class="header-nav">
                         <tr>
-                            <?php include ('navigation_pmfki.php') ?>
+                            <?php include ('navigation_admin.php') ?>
                         </tr>
                     </table>
                 </div>
