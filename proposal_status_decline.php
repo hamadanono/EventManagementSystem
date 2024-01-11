@@ -18,13 +18,10 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['decline'])) {
-        // Values for add or edit
         $event_id = $_POST['event_id'];
         $event_adminRemark = $_POST['event_adminRemark'];
-        //$admin_id = $_POST['admin_id'];
-        //, admin_id = ".$_SESSION["admin_id"]." (add in sql below)
 
-        $sql = "UPDATE event SET event_status = 'D', event_adminRemark = '$event_adminRemark' WHERE event_id='$event_id'";
+        $sql = "UPDATE event SET event_status = 'D', event_adminRemark = '$event_adminRemark', admin_id = '{$_SESSION["admin_id"]}' WHERE event_id='$event_id'";
         $status = update_table($conn, $sql);
 
         if ($status) {
