@@ -18,13 +18,10 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['decline'])) {
-        // Values for add or edit
         $event_id = $_POST['event_id'];
         $event_adminRemark = $_POST['event_adminRemark'];
-        //$admin_id = $_POST['admin_id'];
-        //, admin_id = ".$_SESSION["admin_id"]." (add in sql below)
 
-        $sql = "UPDATE event SET event_status = 'D', event_adminRemark = '$event_adminRemark' WHERE event_id='$event_id'";
+        $sql = "UPDATE event SET event_status = 'D', event_adminRemark = '$event_adminRemark', admin_id = '{$_SESSION["admin_id"]}' WHERE event_id='$event_id'";
         $status = update_table($conn, $sql);
 
         if ($status) {
@@ -55,7 +52,7 @@
     <body>
         <div class="header-row">
             <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
+                <img src="src/icon.png" alt="Website Logo">
                 <h2>
                     <span>FKI</span>
                     <span>EVENT</span>
@@ -63,8 +60,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_admin.php" class="active"> Event Proposal</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_admin.php')?>
                     </tr>
                 </table>
             </div>

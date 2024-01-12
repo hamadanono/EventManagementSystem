@@ -57,10 +57,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" >Event Proposal</a></td>
-                        <td><a href="event.php" class="active">Event List</a></td>
-                        <td><a href="report.php" >Report</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_pmfki.php') ?>
                     </tr>
                 </table>
             </div>

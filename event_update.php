@@ -23,7 +23,7 @@
         $event_id = $_POST['event_id'];
         $event_pwd = $_POST['event_pwd'];
         $event_status = $_POST['event_status'];
-        $event_posterDesc= $_POST['event_posterDesc'];
+        $event_posterDesc= mysqli_real_escape_string($conn, $_POST['event_posterDesc']);
 
         $target_dir = "uploads/poster/";
 
@@ -152,10 +152,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
-                        <td><a href="event.php">Event List</a></td>
-                        <td><a href="report.php" >Report</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_pmfki.php') ?>
                     </tr>
                 </table>
             </div>
@@ -280,7 +277,7 @@
                                 <select name="event_status">
                                     <option value="A" <?php if ($event_status == 'A') echo 'selected'; ?>>ACTIVE</option>
                                     <option value="C" <?php if ($event_status == 'C') echo 'selected'; ?>>CLOSED</option>
-                                    <option value="C" <?php if ($event_status == 'F') echo 'selected'; ?>>FINISHED</option>
+                                    <option value="F" <?php if ($event_status == 'F') echo 'selected'; ?>>FINISHED</option>
                                 </select>
                             </td>
                         </tr>

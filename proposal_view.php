@@ -59,14 +59,12 @@
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="proposal_pmfki.php" class="active">Event Proposal</a></td>
-                        <td><a href="event.php">Event List</a></td>
-                        <td><a href="report.php" >Report</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_pmfki.php') ?>
                     </tr>
                 </table>
             </div>
         </div>
+
         <main>
             <div class="event-row">
                 <div class="proposal-details">
