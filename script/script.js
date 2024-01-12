@@ -20,6 +20,25 @@ function popup_form(){
     document.getElementById("popup_form").style.display = "flex";
 }
 
+
+function confirmJoin(eventId) {
+    var popup = document.getElementById('join_confirmation_popup');
+    document.getElementById('event_id_to_join').value = eventId;
+    popup.style.display = 'flex';
+}
+
+function cancelJoin() {
+    var popup = document.getElementById('join_confirmation_popup');
+    popup.style.display = 'none';
+}
+
+function confirmJoinAction() {
+    var eventIdToJoin = document.getElementById('event_id_to_join').value;
+    window.location.href = 'join_event.php?event_id=' + eventIdToJoin;
+}
+
+
+
 function confirmUnjoin(eventId) {
     // Get the confirmation pop-up element
     var popup = document.getElementById('unjoin_confirmation_popup');
@@ -54,6 +73,17 @@ function recordAttendance(eventId) {
 
     // Set the event ID in a hidden input for later use
     document.getElementById('event_id_for_attendance').value = eventId;
+}
+
+function cancelAttendancePassword() {
+    // Get the attendance password pop-up element
+    var popup = document.getElementById('attendance_password_popup');
+
+    // Clear the input field
+    document.getElementById('event_password').value = "";
+
+    // Hide the attendance password pop-up
+    popup.style.display = 'none';
 }
 
 function submitAttendancePassword() {

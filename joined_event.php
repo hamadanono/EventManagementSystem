@@ -12,11 +12,13 @@ if (!isset($_SESSION['student_id'])) {
 
 $studentId = $_SESSION['student_id'];
 
-// Retrieve joined events for the current student
+// Retrieve joined events for the current student (excluding attended events and future events)
 $sql = "SELECT e.*, a.attendee_id, a.attendance_status
         FROM event e
         JOIN attendee a ON e.event_id = a.event_id
-        WHERE a.student_id = ?
+        WHERE a.student_id = ? 
+            AND a.attendance_status != 'A'
+            AND CONCAT(e.event_endDate, ' ', e.event_endTime) > NOW()
         ORDER BY e.event_startDate ASC";
 
 $stmt = mysqli_prepare($conn, $sql);
@@ -32,6 +34,7 @@ $result = mysqli_stmt_get_result($stmt);
 if (!$result) {
     die('Error in SQL query: ' . mysqli_error($conn));
 }
+
 // Check and display the registration status prompt
 if (isset($_SESSION['registration_status'])) {
     switch ($_SESSION['registration_status']) {
@@ -43,8 +46,6 @@ if (isset($_SESSION['registration_status'])) {
                  </script>';
             break;
 
-        // Existing cases...
-
         case 'wrong_password':
             echo '<script>
                     document.addEventListener("DOMContentLoaded", function() {
@@ -55,6 +56,27 @@ if (isset($_SESSION['registration_status'])) {
     }
     // Unset the session variable
     unset($_SESSION['registration_status']);
+}
+
+// Retrieve past events that the student has attended
+$pastEventsSql = "SELECT e.*, a.attendee_id, a.attendance_status
+        FROM event e
+        JOIN attendee a ON e.event_id = a.event_id
+        WHERE a.student_id = ? AND a.attendance_status = 'A'
+        ORDER BY e.event_startDate ASC";
+
+$pastEventsStmt = mysqli_prepare($conn, $pastEventsSql);
+mysqli_stmt_bind_param($pastEventsStmt, "s", $studentId);
+
+// Execute the statement
+mysqli_stmt_execute($pastEventsStmt);
+
+// Get the result
+$pastEventsResult = mysqli_stmt_get_result($pastEventsStmt);
+
+// Check for errors
+if (!$pastEventsResult) {
+    die('Error in SQL query: ' . mysqli_error($conn));
 }
 ?>
 
@@ -76,21 +98,24 @@ if (isset($_SESSION['registration_status'])) {
 
     <div id="unjoin_confirmation_popup" class="popup-container">
         <div class="popup-content">
-            <p>Are you sure you want to unjoin this event?</p>
+            <p>Are you sure you want to withdraw from this event?</p>
             <input type="hidden" id="event_id_to_unjoin" value="">
             <button class="normal-btn" onclick="cancelUnjoin()">Cancel</button>
             <button class="normal-btn" onclick="confirmUnjoinAction()">Confirm</button>
         </div>
     </div>
 
-<div id="attendance_password_popup" class="popup-container">
+    <div id="attendance_password_popup" class="popup-container">
     <div class="popup-content">
-        <label for="event_password">Event Password:</label>
-        <input type="password" id="event_password" name="event_password" required>
+        <p>Event Password:</p>
+        <input type="password" id="event_password" name="event_password" placeholder="Event Pass"required>
+        <br><br>
         <input type="hidden" id="event_id_for_attendance" name="event_id_for_attendance" value="">
+        <button class="normal-btn" onclick="cancelAttendancePassword()">Cancel</button>
         <button class="normal-btn" onclick="submitAttendancePassword()">Submit</button>
     </div>
 </div>
+
 
 <div id="attendance_success_popup" class="popup-container">
     <div class="popup-content">
@@ -127,15 +152,15 @@ if (isset($_SESSION['registration_status'])) {
         </div>
     </div>
     <div class="table-list">
-    <h1>Joined Events</h1>
+    <h1>Future Events</h1>
     <table border="1" width="100%" class="event-list-table">
         <tr>
             <th width="2%">No.</th>
             <th width="30%">Event Name</th>
             <th width="15%">Event Date</th>
-            <th width="10%">Event Time</th>
+            <th width="15%">Event Time</th>
             <th width="15%">Event Venue</th>
-            <th width="28%">Action</th>
+            <th width="15%">Action</th>
         </tr>
         <?php
         if (mysqli_num_rows($result) > 0) {
@@ -147,22 +172,64 @@ if (isset($_SESSION['registration_status'])) {
                 echo "<td>" . date("d/m/Y", strtotime($row["event_startDate"])) . " - " . date("d/m/Y", strtotime($row["event_endDate"])) . "</td>";
                 echo "<td>" . date("h:i A", strtotime($row["event_startTime"])) . " - " . date("h:i A", strtotime($row["event_endTime"])) . "</td>";
                 echo "<td>" . $row["event_venue"] . "</td>";
-                echo '<td>
-                        <button class="normal-btn" onclick="confirmUnjoin(' . $row["event_id"] . ')">Unjoin</button>
-                        <button class="normal-btn" onclick="recordAttendance(' . $row["event_id"] . ')">Attendance</button>
-                        <button class="normal-btn" onclick="giveFeedback(' . $row["event_id"] . ')">Feedback</button>
-                    </td>';
+                echo "<td>";
+                echo "<button class='joined-event-btn' onclick='confirmUnjoin(" . $row["event_id"] . ")'>Withdraw</button>";
+                
+                // Check if the event password is not empty or null
+                if (!empty($row["event_pwd"])) {
+                    echo "<button class='joined-event-btn' onclick='recordAttendance(" . $row["event_id"] . ")'>Check-In</button>";
+                } else {
+                    echo "<button class='disabled-joined-event-btn' disabled>Check-In</button>";
+                }
+                
+                echo "</td>";
+                
                 echo "</tr>";
                 $numrow++;
             }
         } else {
-            echo '<tr><td colspan="6">You have not joined any events yet.</td></tr>';
+            echo '<tr><td colspan="6">You have no upcoming future events.</td></tr>';
         }
 
         mysqli_close($conn);
         ?>
     </table>
     </div>
+    <div class="table-list">
+    <br>
+    <h1>Attended Events</h1>
+    <table border="1" width="100%" class="event-list-table">
+        <tr>
+            <th width="2%">No.</th>
+            <th width="30%">Event Name</th>
+            <th width="15%">Event Date</th>
+            <th width="15%">Event Time</th>
+            <th width="15%">Event Venue</th>
+            <th width="15%">Action</th>
+        </tr>
+        <?php
+        if (mysqli_num_rows($pastEventsResult) > 0) {
+            $numrow = 1;
+            while ($row = mysqli_fetch_assoc($pastEventsResult)) {
+                echo "<tr>";
+                echo "<td>" . $numrow . "</td>";
+                echo "<td>" . $row["event_name"] . "</td>";
+                echo "<td>" . date("d/m/Y", strtotime($row["event_startDate"])) . " - " . date("d/m/Y", strtotime($row["event_endDate"])) . "</td>";
+                echo "<td>" . date("h:i A", strtotime($row["event_startTime"])) . " - " . date("h:i A", strtotime($row["event_endTime"])) . "</td>";
+                echo "<td>" . $row["event_venue"] . "</td>";
+                echo "<td>";
+                echo "<button class='joined-event-btn' onclick='giveFeedback(" . $row["event_id"] . ")'>Give Feedback</button>";
+                echo "</td>";
+                echo "</tr>";
+                $numrow++;
+            }
+        } else {
+            echo "<tr><td colspan='6'>You have no attended event record.</td></tr>";
+        }
+        ?>
+    </table>
+</div>
+
 </body>
 
 </html>
