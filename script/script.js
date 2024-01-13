@@ -92,6 +92,22 @@ function open_change_pass(){
     document.getElementById("popup-form").style.display = "flex";
 }
 
+function showFeedbackPopup(eventId) {
+    // Display the feedback popup and set the event ID in a hidden input field
+    document.getElementById('feedback_popup').style.display = 'flex';
+    
+    // Set the event ID in a hidden input field in the form
+    document.getElementById('event_id_to_feedback').value = eventId;
+}
+
+function cancelFeedback() {
+    // Close the feedback popup and reset the hidden input field
+    document.getElementById('feedback_popup').style.display = 'none';
+    
+    // Reset the hidden input field value
+    document.getElementById('event_id_to_feedback').value = '';
+}
+
 /**********************|
 |    AUTO OPEN POPUP   |
 |**********************/

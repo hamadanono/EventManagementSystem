@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Event Board</title>
+        <title>PMFKI - Report List</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
 	    <link rel="stylesheet" href="css/style.css">
@@ -41,48 +41,54 @@
             </div>
         </div>
 
-        <div class="table-list">        
-            <h1>Events Report</h1>
-            <div class="eventboard-row">
-                <?php
-                if (mysqli_num_rows($result) > 0) {
-                    // output data of each row
-                    $numrow = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<div class="event-board-div">';
-                        echo '<table class="table-event-board">';
-                        echo '<tr>';
-                        echo '<th rowspan="6"><img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="event-poster"></th>';
-                        echo '<td><h2>' . $row["event_name"] . '</h2></td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                        echo '<td>' . $row["event_posterDesc"] . '</td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                        $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
-                        $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
-                    
-                        if ($startDateFormat == $endDateFormat) {
-                            echo '<td>' . '<b>Date : </b>' . $startDateFormat . '</td>';
-                        } else {
-                            echo '<td>' . '<b>Date : </b>' . $startDateFormat . ' - ' . $endDateFormat . '</td>';
-                        }
-                        echo '</tr>';
-                        echo '<tr>';    
-                        $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
-                        $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
-                        echo '<td>' . '<b>Time : </b>' . $startTime12Hour . ' - ' . $endTime12Hour . '</td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                        echo '<td>' . '<b>Venue : </b>' . $row["event_venue"] . '</td>';
-                        echo '</tr>';
-                        echo '<tr>';
-                        echo '<td><button class="normal-btn" onclick="location.href=\'report_view.php?id='.$row["event_id"].'\'">View More</button></td>';
-                        echo '</tr>';
-                        echo '</table>';
-                        echo '</div>';
-                        $numrow++;
-                    }
+    <div class="table-list">        
+    <h1>Events Report</h1>
+    <div class="eventboard-row">
+
+    <?php
+    if (mysqli_num_rows($result) > 0) {
+        // Output data of each row
+        while ($row = mysqli_fetch_assoc($result)) {
+            // Format date
+            $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
+            $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
+
+            // Format time
+            $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
+            $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
+
+            echo '<div class="card">';
+            echo '<div class="image">';
+            echo '<img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="image-content">';
+            echo '</div>';
+            echo '<div class="details">';
+            echo '<div class="rowtitle">' . $row["event_name"] . '</div>';
+            echo '<div class="row scrollable">' . $row["event_posterDesc"] . '</div>';
+            echo '<div class="row">';
+            echo '<div class="column"><strong>Date</strong></div>';
+            echo '<div class="column">:</div>';
+            echo '<div class="column">' . $startDateFormat . ' - ' . $endDateFormat . '</div>';
+            echo '</div>';
+            
+            echo '<div class="row">';
+            echo '<div class="column"><strong>Time</strong></div>';
+            echo '<div class="column">:</div>';
+            echo '<div class="column">' . $startTime12Hour . ' - ' . $endTime12Hour . '</div>';
+            echo '</div>';
+            
+            echo '<div class="row">';
+            echo '<div class="column"><strong>Venue</strong></div>';
+            echo '<div class="column">:</div>';
+            echo '<div class="column">' . $row["event_venue"] . '</div>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<td>';
+            echo '<button class="normal-btn-report" onclick="location.href=\'report_view.php?id='.$row["event_id"].'\'">View More</button>';
+            echo '</td>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
                 } else {
                     echo '<p class="no-event">There Are No Available Event Report For Now</p>';
                 }

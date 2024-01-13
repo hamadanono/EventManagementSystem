@@ -17,7 +17,7 @@ if (!isset($_SESSION['student_id'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Event Board</title>
+        <title>Student - Feedback List</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" type="image/png" href="src/icon.png">
 	    <link rel="stylesheet" href="css/style.css">

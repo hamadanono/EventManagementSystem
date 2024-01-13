@@ -18,6 +18,7 @@ $sql = "SELECT e.*, a.attendee_id, a.attendance_status
         JOIN attendee a ON e.event_id = a.event_id
         WHERE a.student_id = ? 
             AND a.attendance_status != 'A'
+            AND e.event_status = 'A'
             AND CONCAT(e.event_endDate, ' ', e.event_endTime) > NOW()
         ORDER BY e.event_startDate ASC";
 
@@ -78,6 +79,32 @@ $pastEventsResult = mysqli_stmt_get_result($pastEventsStmt);
 if (!$pastEventsResult) {
     die('Error in SQL query: ' . mysqli_error($conn));
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['give_feedback'])) {
+    $event_id_to_feedback = $_POST['event_id_to_feedback'];
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('feedback_popup').style.display = 'flex';
+            });
+          </script>";
+}
+
+// Function to check if feedback exists for a specific event and student
+function isFeedbackSubmitted($conn, $event_id, $student_id) {
+    $sql = "SELECT * FROM feedback WHERE event_id = '$event_id' AND student_id = '$student_id'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        return true; // Feedback already submitted
+    }
+
+    return false; // Feedback not submitted
+}
+
+function isEventFinished($eventStatus) {
+    // Check if the event status is 'F' (Finished)
+    return $eventStatus === 'F';
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +113,7 @@ if (!$pastEventsResult) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-    <title>Student - Joined Events</title>
+    <title>Student - Joined Event</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
     <link rel="stylesheet" href="css/style.css">
@@ -131,6 +158,25 @@ if (!$pastEventsResult) {
     </div>
 </div>
 
+<div id="feedback_popup" class="popup-container">
+    <div class="popup-content">
+        <form method="POST" action="feedback_action.php">
+            <input type="hidden" name="event_id_to_feedback" id="event_id_to_feedback" value="">
+            <p>Rating:</p>
+            <input type="radio" name="rating" value="1" required>
+            <input type="radio" name="rating" value="2" required>
+            <input type="radio" name="rating" value="3" required>
+            <input type="radio" name="rating" value="4" required>
+            <input type="radio" name="rating" value="5" required>
+            <br>
+            <p>Comment:</p>
+            <textarea rows="4" name="comment" cols="20"></textarea>
+            <br>
+            <button class="normal-btn" type="submit">Submit Feedback</button>
+        </form>
+        <button class="normal-btn" onclick="cancelFeedback()">Cancel</button>
+    </div>
+</div>
 
 
     <div class="header-row">
@@ -143,10 +189,7 @@ if (!$pastEventsResult) {
             </h2>
             <table class="header-nav">
                 <tr>
-                    <td><a href="eventboard.php">Event Board</a></td>
-                    <td><a href="view_joined_event.php" class="active">Joined Event</a></td>
-                    <td><a href="">Feedback</a></td>
-                    <td><a href="signout.php">Sign Out</a></td>
+                    <?php include ('navigation_student.php') ?>
                 </tr>
             </table>
         </div>
@@ -190,8 +233,6 @@ if (!$pastEventsResult) {
         } else {
             echo '<tr><td colspan="6">You have no upcoming future events.</td></tr>';
         }
-
-        mysqli_close($conn);
         ?>
     </table>
     </div>
@@ -205,7 +246,7 @@ if (!$pastEventsResult) {
             <th width="15%">Event Date</th>
             <th width="15%">Event Time</th>
             <th width="15%">Event Venue</th>
-            <th width="15%">Action</th>
+            <th width="15%">Feedback</th>
         </tr>
         <?php
         if (mysqli_num_rows($pastEventsResult) > 0) {
@@ -218,7 +259,23 @@ if (!$pastEventsResult) {
                 echo "<td>" . date("h:i A", strtotime($row["event_startTime"])) . " - " . date("h:i A", strtotime($row["event_endTime"])) . "</td>";
                 echo "<td>" . $row["event_venue"] . "</td>";
                 echo "<td>";
-                echo "<button class='joined-event-btn' onclick='giveFeedback(" . $row["event_id"] . ")'>Give Feedback</button>";
+                    
+                // Check if feedback is already submitted for this event
+                $event_id = $row["event_id"];
+                $isFeedbackSubmitted = isFeedbackSubmitted($conn, $event_id, $studentId);
+                
+                // Check if the event is finished
+                $isEventFinished = isEventFinished($row["event_status"]);
+            
+                // Display the appropriate button based on feedback status and event status
+                if ($isFeedbackSubmitted) {
+                    echo "<button class='disabled-joined-event-btn' disabled>Submitted</button>";
+                } elseif (!$isFeedbackSubmitted && $isEventFinished) {
+                    echo "<button class='disabled-joined-event-btn' disabled>Closed</button>";
+                } else {
+                    echo "<button class='joined-event-btn' onclick='showFeedbackPopup(" . $event_id . ")'>Give Feedback</button>";
+                }
+            
                 echo "</td>";
                 echo "</tr>";
                 $numrow++;
@@ -226,6 +283,7 @@ if (!$pastEventsResult) {
         } else {
             echo "<tr><td colspan='6'>You have no attended event record.</td></tr>";
         }
+        mysqli_close($conn);
         ?>
     </table>
 </div>

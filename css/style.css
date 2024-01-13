@@ -977,6 +977,58 @@ body {
     margin-left: 10px;
 }
 
+/*******************************|
+|  view more button report menu |
+|*******************************/
+.normal-btn-report{
+    background-color: #3b215e;
+    color: #fff;
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
+    z-index: 0;
+    outline: none;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    overflow: hidden;
+    height: 32px;
+}
+
+.normal-btn-report::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background-color: #a07fa7;
+    transform-origin: center;
+    transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 0);
+    transition: transform 0.35s ease-in-out;
+}
+
+.normal-btn-report:hover {
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+}
+  
+.normal-btn-report:hover::before {
+    transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+.normal-btn-report:not(:first-child) {
+    margin-left: 10px;
+}
+
+
 /***********************|
 |    PROPOSAL DETAILS   |
 |***********************/

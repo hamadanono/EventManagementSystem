@@ -62,10 +62,7 @@ if (!$result) {
                 </h2>
                 <table class="header-nav">
                     <tr>
-                        <td><a href="eventboard.php" class="active">Event Board</a></td>
-                        <td><a href="joined_event.php">Joined Event</a></td>
-                        <td><a href="">Feedback</a></td>
-                        <td><a href="signout.php">Sign Out</a></td>
+                        <?php include ('navigation_student.php') ?>
                     </tr>
                 </table>
             </div>
