@@ -126,10 +126,10 @@
             <table border="1" width="100%" class="event-list-table">
                 <tr>
                     <th width="2%">No.</th>
-                    <th width="30%">Event Name</th>
+                    <th width="20%">Event Name</th>
                     <th width="15%">Event Date</th>
-                    <th width="10%">Event Time</th>
-                    <th width="15%">Event Venue</th>
+                    <th width="15%">Event Time</th>
+                    <th width="10%">Event Venue</th>
                     <th width="25%">Action</th>
                 </tr>
                 <?php
