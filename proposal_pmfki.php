@@ -219,7 +219,7 @@
             $endDate = $_POST["endDate"];
             $startTime = $_POST["startTime"];
             $endTime = $_POST["endTime"];
-            $venue =  trim(mysqli_real_escape_string($conn, $_POST['venur']));
+            $venue =  trim(mysqli_real_escape_string($conn, $_POST['venue']));
             $synopsis = trim(mysqli_real_escape_string($conn,$_POST["synopsis"]));
             $objective = trim(mysqli_real_escape_string($conn,$_POST["objective"]));
             $impact = trim(mysqli_real_escape_string($conn,$_POST["impact"]));
