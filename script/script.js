@@ -20,6 +20,24 @@ function popup_form(){
     document.getElementById("popup_form").style.display = "flex";
 }
 
+function confirmJoin(eventId) {
+    var popup = document.getElementById('join_confirmation_popup');
+    document.getElementById('event_id_to_join').value = eventId;
+    popup.style.display = 'flex';
+}
+
+function cancelJoin() {
+    var popup = document.getElementById('join_confirmation_popup');
+    popup.style.display = 'none';
+}
+
+function confirmJoinAction() {
+    var eventIdToJoin = document.getElementById('event_id_to_join').value;
+    window.location.href = 'join_event.php?event_id=' + eventIdToJoin;
+}
+
+
+
 function confirmUnjoin(eventId) {
     var popup = document.getElementById('unjoin_confirmation_popup');
     document.getElementById('event_id_to_unjoin').value = eventId;
@@ -42,6 +60,17 @@ function recordAttendance(eventId) {
     document.getElementById('event_id_for_attendance').value = eventId;
 }
 
+function cancelAttendancePassword() {
+    // Get the attendance password pop-up element
+    var popup = document.getElementById('attendance_password_popup');
+
+    // Clear the input field
+    document.getElementById('event_password').value = "";
+
+    // Hide the attendance password pop-up
+    popup.style.display = 'none';
+}
+
 function submitAttendancePassword() {
     var eventIdForAttendance = document.getElementById('event_id_for_attendance');
     var eventPassword = document.getElementById('event_password');
@@ -60,6 +89,22 @@ function closeWrongPasswordPopup() {
 
 function open_change_pass(){
     document.getElementById("popup-form").style.display = "flex";
+}
+
+function showFeedbackPopup(eventId, eventName) {
+    document.getElementById('event_id_to_feedback').value = eventId;
+
+    document.getElementById('event_name_in_feedback').innerText = eventName;
+
+    document.getElementById('feedback_popup').style.display = 'flex';
+}
+
+function cancelFeedback() {
+    // Close the feedback popup and reset the hidden input field
+    document.getElementById('feedback_popup').style.display = 'none';
+    
+    // Reset the hidden input field value
+    document.getElementById('event_id_to_feedback').value = '';
 }
 
 /**********************|

@@ -145,7 +145,7 @@ if(!isset($_SESSION['pmfki_id'])){
                             <th class="fill">:</th>
                             <td>
                                 <?php
-                                // Assuming $event_status contains the status (A or C or F)
+                                // assuming $event_status contains the status (A or C or F)
                                 if ($event_status == 'A') {
                                     echo "<p class='stat-active'>ACTIVATE</p>";
                                 } elseif ($event_status == 'C') {

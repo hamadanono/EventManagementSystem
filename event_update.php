@@ -7,7 +7,7 @@
 		exit();
 	}
 
-    // Function to insert data into the database table using prepared statements
+    // function to insert data into the database table using prepared statements
     function update_table($conn, $sql){
         if (mysqli_query($conn, $sql)) {
             return true;
@@ -17,9 +17,7 @@
         }
     }
 
-    // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Values for add or edit
         $event_id = $_POST['event_id'];
         $event_pwd = $_POST['event_pwd'];
         $event_status = $_POST['event_status'];
@@ -29,7 +27,7 @@
 
         $uploadstat = 0;
 
-        // Retrieve certification student details for display
+        // retrieve certification student details for display
         $stmtSelect = $conn->prepare("SELECT * FROM event WHERE event_id = ?");
         $stmtSelect->bind_param("i", $event_id);
         $stmtSelect->execute();
@@ -51,8 +49,6 @@
 
             $currimagetarget_file = "uploads/poster/" . $event['event_poster'];
 
-
-            // Check file size > 100mb
             if ($_FILES['poster-img']["size"] > 100000000) {
                 $uploadstat = 0;
                 echo "<script>alert('Size image is too big. Please resize');</script>";
@@ -60,7 +56,6 @@
                 exit();
             }
 
-            // Allow only these file formats
             if (!in_array($imageFileType, ["jpg", "jpeg", "png", ])) {
                 $uploadstat = 0;
                 echo "<script>alert('Sorry, only JPG, JPEG & PNG files are allowed.');</script>";
@@ -81,17 +76,12 @@
                 $status = update_table($conn, $sql);
                 if($status){
                     if(move_uploaded_file($_FILES["poster-img"]["tmp_name"], $target_file)){  	
-                        // Display a popup message
                         echo "<script>alert('Event updated successfully!');</script>";
-                    
-                        // Redirect to the profile page after successful update
                         echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
                         exit();
                     }
                     else{
                         echo "<script>alert('Failed to update event details');</script>";
-                    
-                        // Redirect to the profile page after successful update
                         echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
                     }
                 }
@@ -101,27 +91,19 @@
             }
 
         } else {
-            // No image to upload, insert data into the database
-
             $sql = "UPDATE event SET event_pwd = '$event_pwd', event_status = '$event_status', event_posterDesc = '$event_posterDesc' WHERE  event_id='$event_id'";
             $status = update_table($conn, $sql);
 
             // $stmtUpdate = $conn->prepare("UPDATE student SET cert_semester=?, cert_year=?, cert_date=?, cert_name=?, cert_level=? WHERE std_ID=? AND cert_ID=?");
             // $stmtUpdate->bind_param("ssssssi", $cert_semester, $cert_year, $cert_date, $cert_name, $cert_level, $studentNo, $cert_ID);
 
-
             if ($status) {
-                // Display a popup message
-               // Display a popup message
                echo "<script>alert('Event updated successfully!');</script>";
-               // Redirect to the profile page after successful update
                echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
                exit();
            }
            else{
                 echo "<script>alert('Failed to update event details');</script>";
-        
-                // Redirect to the profile page after successful update
                 echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
            }
        
@@ -136,7 +118,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
         <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
+        <link rel="icon" type="image/png" href="src/icon.png">
     	<link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
@@ -144,7 +126,7 @@
     <body>
         <div class="header-row">
             <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
+                <img src="src/icon.png" alt="Website Logo">
                 <h2>
                     <span>FKI</span>
                     <span>EVENT</span>

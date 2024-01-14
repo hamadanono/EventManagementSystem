@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
         <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
+        <link rel="icon" type="image/png" href="src/icon.png">
 	    <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
@@ -46,11 +46,11 @@
 
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
-                <p>Are you sure you want to delete this PMFKI account??</p>
+                <p>Are you sure you want to delete this PMFKI account?</p>
                 <form action="pmfki_delete.php?id=<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" method="POST"> 
                     <input type="text" id="pmfki_id" name="pmfki_id" value="<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" hidden>
                     <button class="normal-btn" type="button" action="" onclick="location.href='pmfki.php'">Cancel</button>
-                    <button class="normal-btn" type="submit" name="confirm">Confirm</button>
+                    <button class="decline-btn" type="submit" name="confirm">Confirm</button>
                 </form>
             </div>
         </div>

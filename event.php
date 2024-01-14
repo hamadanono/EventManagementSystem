@@ -7,30 +7,21 @@
         exit();
     }
 
-    // Use prepared statement to avoid SQL injection
     $sql = "SELECT * FROM event WHERE event_status=? OR event_status=? OR event_status=?";
     $stmt = mysqli_prepare($conn, $sql);
 
-    // Check if preparation was successful
     if ($stmt) {
-        // Bind the parameters
         $event_status_A = 'A';
         $event_status_C = 'C';
         $event_status_F = 'F';
         mysqli_stmt_bind_param($stmt, "sss", $event_status_A, $event_status_C,$event_status_F);
 
-        // Execute the statement
         mysqli_stmt_execute($stmt);
 
-        // Get the result
         $result = mysqli_stmt_get_result($stmt);
 
-        // Use $result as needed
-
-        // Close the statement
         mysqli_stmt_close($stmt);
     } else {
-        // Handle the case where preparation failed
         echo "Error in preparing statement: " . mysqli_error($conn);
     }
 ?>
@@ -40,8 +31,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
+        <title>PMFKI - Event List</title>
+        <link rel="icon" type="image/png" href="src/icon.png">
     	<link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
@@ -49,7 +40,7 @@
     <body>
         <div class="header-row">
             <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
+                <img src="src/icon.png" alt="Website Logo">
                 <h2>
                     <span>FKI</span>
                     <span>EVENT</span>
