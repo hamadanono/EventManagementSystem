@@ -28,7 +28,7 @@
                 <form action="signin_admin.php" method="POST">
                     <table class="signin-table">
                         <tr>
-                            <th><label for="admin_id">Username</label></th>
+                            <th><label for="admin_id">Admin ID</label></th>
                         </tr>
                         <tr>
                             <td><input type="text" name="admin_id" required></td>
