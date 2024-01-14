@@ -28,7 +28,7 @@
                 <form action="signin_pmfki.php" method="POST">
                     <table class="signin-table">
                         <tr>
-                            <th><label for="pmfki_id">Username</label></th>
+                            <th><label for="pmfki_id">PMFKI ID</label></th>
                         </tr>
                         <tr>
                             <td><input type="text" name="pmfki_id" required></td>
