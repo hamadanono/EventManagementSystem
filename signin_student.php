@@ -28,7 +28,7 @@
                 <form action="signin_student.php" method="POST">
                     <table class="signin-table">
                         <tr>
-                            <th><label for="student_id">Username</label></th>
+                            <th><label for="student_id">Student ID</label></th>
                         </tr>
                         <tr>
                             <td><input type="text" name="student_id" required></td>
