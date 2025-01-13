@@ -68,15 +68,16 @@
 </body>
 <?php
     include('../config.php');
-        $targetdir = "../../public/storage/profile/";
-        $targetfile = "";
-        $uploadstat = 0;
-        $imgfiletype = "";
-        $uploadfilename = "";
-        // create a file if the file doeesn't exist
-        if (!file_exists($targetdir) && !is_dir($targetdir)) {
-            mkdir($targetdir, 0777, true); 
-        }
+    $targetdir = "../../public/storage/profile/";
+    $targetfile = "";
+    $uploadstat = 0;
+    $imgfiletype = "";
+    $uploadfilename = "";
+    // create a file if the file doeesn't exist
+    if (!file_exists($targetdir) && !is_dir($targetdir)) {
+        mkdir($targetdir, 0777, true); 
+    }
+
         function insert_to_table($conn, $sql){
             if (mysqli_query($conn, $sql)) {
                 return true;
