@@ -1,5 +1,5 @@
 <?php
-    include("config.php");
+    include "config.php";
     session_start();
 
     if (!isset($_SESSION['student_id'])) {
@@ -7,9 +7,6 @@
         exit();
     }
 ?>
-
-<!DOCTYPE html>
-<html>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +31,16 @@
                     <span>MANAGEMENT</span>
                 </h2>
                 <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_student.php') ?>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Navigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php include 'navigation_student.php'; ?>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -78,7 +82,7 @@
                         }
                     } else {
                         echo '<tr><td colspan="7">0 results</td></tr>';
-                    } 
+                    }
                 ?>
             </table>
         </div>
