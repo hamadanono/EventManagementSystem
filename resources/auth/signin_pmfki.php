@@ -1,4 +1,3 @@
-
 <?php
     include('../utils.php');
     authHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
@@ -13,30 +12,6 @@
 
         <div class="container-row">
             <img src="../../public/icon//icon.png" alt="Logo">
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>PMFKI - Sign In</title>
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
-
-    <body>
-        <script src="script/script.js"></script>
-
-        <div id="popup_page_stay" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message_stay"></p>
-                <button class="button" onclick="location.href='signin_pmfki.php'">Close</button>
-            </div>
-        </div>
-
-        <div class="container-row">
-            <img src="src/icon.png" alt="Logo">
-
             <h2>FKI Event Management</h2>
             <div class="signin-box">
                 <h1>Sign In</h1>
@@ -65,7 +40,6 @@
     </body>
 
     <?php
-
         include ('../config.php');
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -80,7 +54,6 @@
                 if(password_verify($pmfki_pwd, $row['pmfki_pwd'])){
                     session_start();
                     $_SESSION['pmfki_id'] = $pmfki_id;
-
                     header("location: ../pmfki/proposal/proposal_pmfki.php");
                     exit();
                 }
