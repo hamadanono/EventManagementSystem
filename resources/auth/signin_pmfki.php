@@ -1,3 +1,18 @@
+
+<?php
+    include('../utils.php');
+    authHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+?>
+
+    <body>
+        <script src="../../public/js/script.js"></script>
+
+        <?php
+            popUp('signin_pmfki.php');
+        ?>
+
+        <div class="container-row">
+            <img src="../../public/icon//icon.png" alt="Logo">
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,6 +36,7 @@
 
         <div class="container-row">
             <img src="src/icon.png" alt="Logo">
+
             <h2>FKI Event Management</h2>
             <div class="signin-box">
                 <h1>Sign In</h1>
@@ -49,7 +65,8 @@
     </body>
 
     <?php
-        include ('config.php');
+
+        include ('../config.php');
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pmfki_id = strtoupper(trim($_POST['pmfki_id']));
@@ -63,7 +80,8 @@
                 if(password_verify($pmfki_pwd, $row['pmfki_pwd'])){
                     session_start();
                     $_SESSION['pmfki_id'] = $pmfki_id;
-                    header("location: proposal_pmfki.php");
+
+                    header("location: ../pmfki/proposal/proposal_pmfki.php");
                     exit();
                 }
                 else{
