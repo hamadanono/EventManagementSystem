@@ -1,11 +1,11 @@
 <?php
-    include("config.php");
+    include "config.php";
     session_start();
 
     if (isset($_GET['id'])) {
-        $feedback_id = $_GET['id'];
-        $sql = "SELECT f.*, e.event_name FROM feedback f 
-                JOIN event e ON f.event_id = e.event_id 
+        $feedback_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
+        $sql = "SELECT f.*, e.event_name FROM feedback f
+                JOIN event e ON f.event_id = e.event_id
                 WHERE f.feedback_id = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "i", $_GET["id"]);
@@ -24,9 +24,6 @@
         exit();
     }
 ?>
-
-<!DOCTYPE html>
-<html>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +47,16 @@
                     <span>MANAGEMENT</span>
                 </h2>
                 <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_student.php') ?>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Navigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php include 'navigation_student.php'; ?>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -67,9 +71,9 @@
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
                 <p>Are you sure you want to delete this feedback?</p>
-                <form action="feedback_delete.php?id=<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" method="POST"> 
-                    <input type="text" id="feedback_id" name="feedback_id" value="<?= isset($_GET['id']) ? $_GET['id'] : '' ?>" hidden>
-                    <button class="normal-btn" type="button" action="" onclick="location.href='feedback.php'">Cancel</button>
+                <form action="feedback_delete.php" method="POST">
+                    <input type="text" id="feedback_id" name="feedback_id" value="<?= htmlspecialchars($feedback_id) ?>" hidden>
+                    <button class="normal-btn" type="button" onclick="location.href='feedback.php'">Cancel</button>
                     <button class="decline-btn" type="submit" name="confirm">Confirm</button>
                 </form>
             </div>
@@ -111,7 +115,7 @@
                         }
                     } else {
                         echo '<tr><td colspan="7">0 results</td></tr>';
-                    } 
+                    }
                 ?>
             </table>
         </div>
