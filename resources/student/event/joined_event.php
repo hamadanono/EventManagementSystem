@@ -1,14 +1,15 @@
 <?php
 include("config.php");
+include('utils.php');
 
 // Start or resume the session
 session_start();
-
+validateSession('student_id', 'index.php');
 // Check if the user is not logged in, redirect to the login page
-if (!isset($_SESSION['student_id'])) {
-    header("Location: index.php");
-    exit();
-}
+// if (!isset($_SESSION['student_id'])) {
+//     header("Location: index.php");
+//     exit();
+// }
 
 $studentId = $_SESSION['student_id'];
 
