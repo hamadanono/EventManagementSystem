@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD
+    include '../utils.php';
+    authHeader('Student Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+=======
     include('../utils.php');
     customHeader('Student Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+>>>>>>> dcf1f4e2f1e7217d0896e20ffe7ae080c8ccd197
 ?>
 
 <body>
@@ -35,7 +40,7 @@
             </form>
             <div class="signup">
                 <span>
-                    <p>Don't have an account?</p> 
+                    <p>Don't have an account?</p>
                     <a href="signup.php">Register Here</a>
                 </span>
             </div>
@@ -43,7 +48,7 @@
     </div>
 </body>
 <?php
-    include ('../config.php');
+    include '../config.php';
     session_start();
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $student_id = strtoupper(trim($_POST['student_id']));
@@ -59,11 +64,11 @@
             }
             else{
                 echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
-            } 
+            }
         }
         else{
             echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
-        } 
+        }
     }
     $conn -> close();
 ?>

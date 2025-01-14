@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD
+    include '../utils.php';
+    authHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+=======
     include('../utils.php');
     customHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+>>>>>>> dcf1f4e2f1e7217d0896e20ffe7ae080c8ccd197
 ?>
 
     <body>
@@ -40,7 +45,7 @@
     </body>
 
     <?php
-        include ('../config.php');
+        include '../config.php';
 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pmfki_id = strtoupper(trim($_POST['pmfki_id']));
@@ -59,11 +64,11 @@
                 }
                 else{
                     echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
-                } 
+                }
             }
             else{
                 echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
-            } 
+            }
         }
         $conn -> close();
     ?>
