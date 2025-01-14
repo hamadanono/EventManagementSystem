@@ -12,4 +12,3 @@
         $class = ($current_page == $page_link) ? 'active' : '';
         echo '<td><a href="' . $page_link . '" class="' . $class . '">' . $page_title . '</a></td>';
     }
-?>

@@ -1,6 +1,6 @@
 <?php
-    include('../../config.php');
-    include('../../utils.php');
+    include '../../config.php';
+    include '../../utils.php';
 
     session_start();
     validateSession('pmfki_id', '../../index.php');

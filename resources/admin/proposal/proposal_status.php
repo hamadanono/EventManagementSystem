@@ -20,4 +20,3 @@
             echo "<script>window.location.href='proposal_admin_manage.php?id=$event_id';</script>";
         }
     }
-?>
