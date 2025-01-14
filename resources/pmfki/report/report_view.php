@@ -1,5 +1,5 @@
 <?php
-    include('config.php');
+    include 'config.php';
     session_start();
 
     $pageurl = $_SERVER['REQUEST_URI'];
@@ -53,17 +53,24 @@
                         <span>MANAGEMENT</span>
                     </h2>
                     <table class="header-nav">
+                    <thead>
                         <tr>
-                            <?php include ('navigation_pmfki.php') ?>
+                            <th>Navigation</th>
                         </tr>
-                    </table>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php include 'navigation_pmfki.php'; ?>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
 
         <?php
             echo"<div class='report-row'>";
             if (isset($result) && mysqli_num_rows($result) > 0) {
-                $rows = $result->fetch_assoc(); 
+                $rows = $result->fetch_assoc();
                 echo"<div class='report-left'>";
                 echo "<img src='uploads/poster/" . ($rows["event_poster"] ?? '') . "' alt='Event Poster'>";
                 echo "</div>";
@@ -116,7 +123,7 @@ while ($registeredStudentRow = mysqli_fetch_assoc($registeredStudentsResult)) {
         echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
         echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
         echo '<td>ATTENDED</td>';
-    } else if ($registeredStudentRow["attendance_status"] == 'B') {
+    } elseif ($registeredStudentRow["attendance_status"] == 'B') {
         echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
         echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
         echo '<td>ABSENT</td>';
@@ -168,5 +175,5 @@ echo "</table>";
             }
             ?>
         </div>
-    </body>   
+    </body>
 </html>
