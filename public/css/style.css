@@ -10,7 +10,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
-    /* Adjust padding */
+    /* padding: 0.5em 1em; */
 }
 
 .button {
@@ -1493,6 +1493,7 @@ body {
 @media screen and (max-width: 950px) {
     .header-row{
         height: 20%;
+        ;
     }
 }
 
