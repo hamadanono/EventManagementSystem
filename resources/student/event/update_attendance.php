@@ -38,4 +38,3 @@
 
     header("Location: joined_event.php");
     exit();
-?>

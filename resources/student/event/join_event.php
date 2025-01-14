@@ -40,4 +40,3 @@
 
     header("Location: eventboard.php");
     exit();
-?>
