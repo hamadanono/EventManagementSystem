@@ -22,10 +22,13 @@
 
         <?php
             if (mysqli_num_rows($result) > 0) {
+                // Output data of each row
                 while ($row = mysqli_fetch_assoc($result)) {
+                    // Format date
                     $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
                     $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
 
+                    // Format time
                     $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
                     $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
 

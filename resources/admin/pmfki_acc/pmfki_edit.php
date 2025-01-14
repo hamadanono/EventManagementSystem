@@ -14,7 +14,6 @@
             popUpSuccess('pmfki.php');
         ?>
 
-        <!-- Form Popup -->
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
                 <form action="pmfki_edit.php" method="POST">
