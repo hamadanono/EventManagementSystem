@@ -1,49 +1,17 @@
 <?php
-    include "config.php";
-    session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if (!isset($_SESSION['student_id'])) {
-        header("Location: index.php");
-        exit();
-    }
+    session_start();
+    validateSession('student_id', '../../index.php');
+    
+    customHeader('Student Feedback', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Feedback List</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <thead>
-                        <tr>
-                            <th>Navigation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php include 'navigation_student.php'; ?>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <?php
+            studentNavigation();
+        ?>
             
         <div class="table-list">
             <h1>My Feedback</h1>

@@ -1,6 +1,9 @@
 <?php
-    include "config.php";
+    include('../../config.php');
+    include('../../utils.php');
+
     session_start();
+    validateSession('student_id', '../../index.php');
 
     if (isset($_GET['id'])) {
         $feedback_id = $_GET['id'];
@@ -19,54 +22,14 @@
         }
     }
 
-    if (!isset($_SESSION['student_id'])) {
-        header("Location: index.php");
-        exit();
-    }
+    customHeader('Student Feedback', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Feedback List</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body onload="auto_open_popup('popup_form')">
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <thead>
-                        <tr>
-                            <th>Navigation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php include 'navigation_student.php'; ?>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="popup" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message"></p>
-                <button class="button" onclick="location.href='feedback.php'">Close</button>
-            </div>
-        </div>
+        <?php
+            studentNavigation();
+            popUpSuccess('feedback.php')
+        ?>
 
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
@@ -151,17 +114,6 @@
         </div>
     </body>
     <?php
-        function update_table($conn, $sql) {
-            // Use prepared statements to execute SQL queries
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_execute($stmt);
-                return true;
-            } else {
-                echo "Error: " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $student_id = $_SESSION["student_id"];
             $feedback_id = isset($_POST['feedback_id']) ? $_POST['feedback_id'] : '';
@@ -179,7 +131,7 @@
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "isi", $rating, $comment, $feedback_id);
                     
-                    $status = update_table($conn, $sql);
+                    $status = executeQuery($conn, $sql);
                     if ($status) {
                         echo '<script>auto_popup_message("Feedback has been updated");</script>';
                     } else {
