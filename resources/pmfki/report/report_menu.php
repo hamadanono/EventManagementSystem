@@ -1,5 +1,5 @@
 <?php
-    include('config.php');
+    include 'config.php';
 	session_start();
 
     $sql = "SELECT * FROM event WHERE event_status = 'F'";
@@ -10,8 +10,6 @@
 		exit();
 	}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,14 +31,21 @@
                     <span>MANAGEMENT</span>
                 </h2>
                 <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Navigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php include 'navigation_pmfki.php'; ?>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="table-list">        
+        <div class="table-list">
         <h1>Events Report</h1>
         <div class="eventboard-row">
 
