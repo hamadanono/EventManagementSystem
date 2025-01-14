@@ -40,7 +40,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
     </head>
-
+    
     <body>
         <script src="script/script.js"></script>
 
