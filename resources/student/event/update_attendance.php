@@ -1,12 +1,9 @@
 <?php
-    include("config.php");
+    include('../../config.php');
+    include('../../utils.php');
 
     session_start();
-
-    if (!isset($_SESSION['student_id'])) {
-        header("Location: index.php");
-        exit();
-    }
+    validateSession('student_id', '../../index.php');
 
     $studentId = $_SESSION['student_id'];
 

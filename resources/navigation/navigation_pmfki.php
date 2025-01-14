@@ -2,10 +2,10 @@
     $current_page = basename($_SERVER['PHP_SELF']);
     
     $pages = array(
-        'proposal_pmfki.php' => 'Event Proposal',
-        'event.php' => 'Event List',
-        'report_menu.php' => 'Report',
-        'signout.php' => 'Sign Out'
+        '../proposal/proposal_pmfki.php' => 'Event Proposal',
+        '../event/event.php' => 'Event List',
+        '../report/report_menu.php' => 'Report',
+        '../../auth/signout.php' => 'Sign Out'
     );
     
     foreach ($pages as $page_link => $page_title) {
