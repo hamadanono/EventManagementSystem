@@ -27,7 +27,7 @@
                     <table class="header-nav">
                         <tr>';
                         
-                        include ('../../navigation/navigation_admin.php');
+                        include '../../navigation/navigation_admin.php';
                         
                         echo '
                         </tr>
@@ -51,7 +51,7 @@
                     </h2>
                     <table class="header-nav">
                         <tr>';
-                            include ('../../navigation/navigation_student.php');
+                            include '../../navigation/navigation_student.php';
                         echo '</tr>
                     </table>
                 </div>
@@ -73,7 +73,7 @@
                 </h2>
                 <table class="header-nav">
                     <tr>';
-                        include ('navigation_pmfki.php');
+                        include 'navigation_pmfki.php';
                     echo'</tr>
                 </table>
             </div>
@@ -127,9 +127,9 @@
     function displayTableEventStatus($event_status) {
         if ($event_status == 'A' || $event_status == 'C') {
             echo "<td class=\"status-active\">Approved</td>";
-        } else if ($event_status == 'P') {
+        } elseif ($event_status == 'P') {
             echo "<td class=\"status-pending\">Pending</td>";
-        } else if ($event_status == 'D') {
+        } elseif ($event_status == 'D') {
             echo "<td class=\"status-closed\">Declined</td>";
         } else {
             echo "<td>" . htmlspecialchars($event_status) . "</td>";
@@ -139,9 +139,9 @@
     function displayEventStatus($event_status) {
         if ($event_status == 'A' || $event_status == 'C') {
             echo "<p class='stat-active'>Approved </p>";
-        } else if ($event_status == 'P') {
+        } elseif ($event_status == 'P') {
             echo "<p class='stat-pending'>Pending </p>";
-        } else if ($event_status == 'D') {
+        } elseif ($event_status == 'D') {
             echo "<p class='stat-closed'>Declined </p>";
         } else {
             echo "";
@@ -151,9 +151,9 @@
     function getEventStatusLabel($status) {
         if ($status == 'A' || $status == 'C') {
             echo "Approved";
-        } else if ($status == 'P') {
+        } elseif ($status == 'P') {
             echo "Pending";
-        } else if ($status == 'D') {
+        } elseif ($status == 'D') {
             echo "Declined";
         } else {
             echo "";

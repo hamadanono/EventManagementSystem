@@ -1,5 +1,5 @@
 <?php
-    include('resources/utils.php');
+    include 'resources/utils.php';
     customHeader('User Selection', 'public/css/style.css', 'public/icon/icon.png');
 ?>
     <body>
