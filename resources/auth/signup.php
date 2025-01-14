@@ -1,5 +1,5 @@
 <?php
-    include('../utils.php');
+    include '../utils.php';
     authHeader('Student Sign Up', '../../public/css/style.css', '../../public/icon/icon.png');
 ?>
 
@@ -13,7 +13,7 @@
 
     <div class="container-row">
         <div class="signup-box">
-            <form action="signup.php" method="POST" enctype="multipart/form-data" id="sign-form"> 
+            <form action="signup.php" method="POST" enctype="multipart/form-data" id="sign-form">
                 <table width="100%" class="signup-table">
                     <h1>Sign Up</h1>
                     <tr>
@@ -67,7 +67,7 @@
     </div>
 </body>
 <?php
-    include('../config.php');
+    include '../config.php';
     $targetdir = "../../public/storage/profile/";
     $targetfile = "";
     $uploadstat = 0;
@@ -75,13 +75,13 @@
     $uploadfilename = "";
     // create a file if the file doeesn't exist
     if (!file_exists($targetdir) && !is_dir($targetdir)) {
-        mkdir($targetdir, 0777, true); 
+        mkdir($targetdir, 0777, true);
     }
 
-        function insert_to_table($conn, $sql){
+        function insertTotable($conn, $sql){
             if (mysqli_query($conn, $sql)) {
                 return true;
-            } 
+            }
             else {
                 echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
                 return false;
@@ -121,11 +121,11 @@
                     $uploadstat = 0;
                 }
                 if($uploadstat == 1){
-                    $sql = "INSERT INTO student (student_name, student_ic ,student_id, student_pwd, student_email, student_phone, 
+                    $sql = "INSERT INTO student (student_name, student_ic ,student_id, student_pwd, student_email, student_phone,
                             student_address, student_profilePic)
-                            VALUES ('$student_name', '$student_ic', '$student_id', '$pwd_hash', '$student_email', 
+                            VALUES ('$student_name', '$student_ic', '$student_id', '$pwd_hash', '$student_email',
                             '$student_phone', '$student_address', '$imgnewname')";
-                    $status = insert_to_table($conn, $sql);
+                    $status = insertTotable($conn, $sql);
                     if($status){
                         if(move_uploaded_file($_FILES["student_profilePic"]["tmp_name"], $targetfile)){
                             echo '<script>popup_message("Your account has been successfully registered")</script>';
