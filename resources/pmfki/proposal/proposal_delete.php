@@ -1,11 +1,9 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if(!isset($_SESSION['pmfki_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('pmfki_id', '../../index.php');
 
     if (isset($_GET["id"]) && $_GET["id"] != "") {
         $id = $_GET["id"];

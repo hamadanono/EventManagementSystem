@@ -1,42 +1,17 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if(!isset($_SESSION['admin_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('admin_id', '../../index.php');
+
+    customHeader('Admin Proposal', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_admin.php')?>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <?php
+            adminNavigation();
+        ?>
                 
 
         <div class="table-list">
@@ -82,15 +57,7 @@
                             echo '<td>' . $row["event_venue"] . '</td>';
 
                             $event_status = $row["event_status"];
-                            if ($event_status == 'A' || $event_status == 'C') {
-                                echo "<td class=\"status-active\">Approved</td>";
-                            } else if ($event_status == 'P') {
-                                echo "<td class=\"status-pending\">Pending</td>";
-                            } else if ($event_status == 'D') {
-                                echo "<td class=\"status-closed\">Declined</td>";
-                            } else {
-                                echo "<td>" . $row["event_status"] . "</td>";
-                            }
+                            displayTableEventStatus($event_status); 
 
                             echo "<td>" . $row["event_adminRemark"] . "</td>";
                             echo '<td><button class="normal-btn" onclick="location.href=\'proposal_admin_manage.php?id=' . $row["event_id"] . '\'">Manage</button></td>';
