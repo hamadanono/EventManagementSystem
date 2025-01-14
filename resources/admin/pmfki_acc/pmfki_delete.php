@@ -1,48 +1,18 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if(!isset($_SESSION['admin_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('admin_id', '../../index.php');
+
+    customHeader('Admin PMFKI Account', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body onload="auto_open_popup('popup_form')">
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_admin.php')?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div id="popup" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message"></p>
-                <button class="button" onclick="location.href='pmfki.php'">Close</button>
-            </div>
-        </div>
+        <?php
+            adminNavigation();
+            popUp('pmfki.php');
+        ?>
 
         <div id="popup_form" class="popup-form">
             <div class="popup-content">

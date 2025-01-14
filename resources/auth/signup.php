@@ -1,6 +1,6 @@
 <?php
     include('../utils.php');
-    authHeader('Student Sign Up', '../../public/css/style.css', '../../public/icon/icon.png');
+    customHeader('Student Sign Up', '../../public/css/style.css', '../../public/icon/icon.png');
 ?>
 
 <body>

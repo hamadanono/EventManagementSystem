@@ -1,69 +1,37 @@
 <?php
-    include 'config.php';
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
+
+    session_start();
+    validateSession('pmfki_id', '../../index.php');
 
     $sql = "SELECT * FROM event WHERE event_status = 'F'";
     $result = $conn->query($sql);
 
-    if(!isset($_SESSION['pmfki_id'])){
-		header("location: index.php");
-		exit();
-	}
+    customHeader('PMFKI Report', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>PMFKI - Report List</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="src/icon.png">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <thead>
-                        <tr>
-                            <th>Navigation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php include 'navigation_pmfki.php'; ?>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <?php
+            pmfkiNavigation();
+        ?>
 
-        <div class="table-list">
+        <div class="table-list">        
         <h1>Events Report</h1>
         <div class="eventboard-row">
 
         <?php
             if (mysqli_num_rows($result) > 0) {
-                // Output data of each row
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // Format date
                     $startDateFormat = date("d/m/Y", strtotime($row["event_startDate"]));
                     $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
 
-                    // Format time
                     $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
                     $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
 
                     echo '<div class="card">';
                     echo '<div class="image">';
-                    echo '<img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="image-content">';
+                    echo '<img src="../../../public/storage/profile/' . $row["event_poster"] . '" alt="Event Poster" class="image-content">';
                     echo '</div>';
                     echo '<div class="details">';
                     echo '<div class="rowtitle">' . $row["event_name"] . '</div>';

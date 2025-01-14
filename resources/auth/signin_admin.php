@@ -1,6 +1,6 @@
 <?php
     include('../utils.php');
-    authHeader('Admin Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+    customHeader('Admin Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
 ?>
 
 <body>

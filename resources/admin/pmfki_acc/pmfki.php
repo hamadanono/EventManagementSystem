@@ -1,48 +1,18 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if(!isset($_SESSION['admin_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('admin_id', '../../index.php');
+
+    customHeader('Admin PMFKI Account', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_admin.php')?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div id="popup_page_stay" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message_stay"></p>
-                <button class="button" onclick="location.href='pmfki.php'">Close</button>
-            </div>
-        </div>
+        <?php
+            adminNavigation();
+            popUp('pmfki.php');
+        ?>
 
         <!-- Form Popup -->
         <div id="popup_form" class="popup-form">
@@ -128,16 +98,6 @@
         </div>
     </body>
     <?php
-        function insert_to_table($conn, $sql){
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } 
-            else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
-
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $pmfki_name = strtoupper(trim($_POST["pmfki_name"]));
             $pmfki_id = strtoupper(trim($_POST["pmfki_id"]));
@@ -149,7 +109,7 @@
             if(isset($_POST["confirm"])){
                 $sql = "INSERT INTO pmfki (pmfki_name, pmfki_ic, pmfki_id, pmfki_phone, pmfki_pwd)
                         VALUES ('$pmfki_name', '$pmfki_ic', '$pmfki_id', '$pmfki_phone', '$pwd_hash')";
-                $status = insert_to_table($conn, $sql);
+                $status = executeQuery($conn, $sql);
     
                 if($status){
                     echo '<script>popup_page_stay("New PMFKI account has been created");</script>';

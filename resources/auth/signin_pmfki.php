@@ -1,6 +1,6 @@
 <?php
     include('../utils.php');
-    authHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+    customHeader('PMFKI Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
 ?>
 
     <body>

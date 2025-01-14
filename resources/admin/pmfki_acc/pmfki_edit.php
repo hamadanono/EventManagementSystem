@@ -1,48 +1,18 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
-    if(!isset($_SESSION['admin_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('admin_id', '../../index.php');
+
+    customHeader('Admin PMFKI Account', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-	    <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body onload="auto_open_popup('popup_form')">
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_admin.php')?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div id="popup" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message"></p>
-                <button class="button" onclick="location.href='pmfki.php'">Close</button>
-            </div>
-        </div>
+        <?php
+            adminNavigation();
+            popUpSuccess('pmfki.php');
+        ?>
 
         <!-- Form Popup -->
         <div id="popup_form" class="popup-form">
@@ -146,15 +116,6 @@
         </div>
     </body>
     <?php
-        function update_table($conn, $sql){
-			if (mysqli_query($conn, $sql)) {
-				return true;
-			} else {
-				echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-				return false;
-			}
-		}
-
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $pmfki_id = $_POST['pmfki_id'];
             $pmfki_name = strtoupper(trim($_POST["pmfki_name"]));
@@ -165,11 +126,11 @@
             if(isset($_POST["confirm"])){
                 if ($pmfki_pwd == "") {
                     $sql = "UPDATE pmfki SET pmfki_name = '$pmfki_name', pmfki_ic = '$pmfki_ic', pmfki_phone = '$pmfki_phone' WHERE pmfki_id = '$pmfki_id'";
-                    $status = update_table($conn, $sql);
+                    $status = executeQuery($conn, $sql);
                 } else {
                     $pwd_hash = trim(password_hash($_POST["pmfki_pwd"], PASSWORD_DEFAULT));
                     $sql = "UPDATE pmfki SET pmfki_name = '$pmfki_name', pmfki_ic = '$pmfki_ic', pmfki_phone = '$pmfki_phone', pmfki_pwd = '$pwd_hash' WHERE pmfki_id = '$pmfki_id'";
-                    $status = update_table($conn, $sql);
+                    $status = executeQuery($conn, $sql);
                 }
             }
             if($status){
