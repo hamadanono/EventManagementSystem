@@ -162,7 +162,6 @@ body {
     width: 0 auto;
     border-radius: 8px;
     margin-bottom: 30px;
-    /* border: 1px solid white; */
 }
 
 .signin-box p {
@@ -170,7 +169,6 @@ body {
     font-weight: bold;
     text-align: center;
     padding-bottom: 30px;
-    /* border: 1px solid white; */
 }
 
 .signin-table {
@@ -549,14 +547,12 @@ body {
     display: flex;
     align-items: center;
     margin: 20px;
-    /* border: 1px solid white; */
     flex: 20%; 
 }
 
 .header-main img {
     padding-left: 130px;
-    width: 5%; 
-    /* border: 1px solid white; */
+    width: 5%;
 }
 
 .header-main h2 {
@@ -565,7 +561,6 @@ body {
     width: 14%; 
     padding-left: 10px;
     margin: 0;
-    /* border: 1px solid white; */
 }
 
 .header-main h2 span {
@@ -581,7 +576,6 @@ body {
     margin-right: 50px;
     position: relative;
     text-decoration: none;
-    /* border: 1px solid white; */
 }
 
 .header-nav a.active {
@@ -1374,8 +1368,6 @@ body {
     .row > div:nth-child(3) {
         flex: 12; /* Set the width of the third column */
     }
-    
-    /* eventboard habis */
 
 /***********************|
 |         PRINT         |

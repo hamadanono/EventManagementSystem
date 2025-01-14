@@ -1,11 +1,11 @@
 <?php
-    include("config.php");
+    include "config.php";
     session_start();
 
     if (isset($_GET['id'])) {
         $feedback_id = $_GET['id'];
-        $sql = "SELECT f.*, e.event_name FROM feedback f 
-                JOIN event e ON f.event_id = e.event_id 
+        $sql = "SELECT f.*, e.event_name FROM feedback f
+                JOIN event e ON f.event_id = e.event_id
                 WHERE f.feedback_id = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "i", $_GET["id"]);
@@ -24,9 +24,6 @@
         exit();
     }
 ?>
-
-<!DOCTYPE html>
-<html>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +47,16 @@
                     <span>MANAGEMENT</span>
                 </h2>
                 <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_student.php') ?>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Navigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php include 'navigation_student.php'; ?>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -67,23 +71,28 @@
         <div id="popup_form" class="popup-form">
             <div class="popup-content">
                 <form action="feedback_edit.php" method="POST">
-                    <input type="text" id="feedback_id" name="feedback_id" value="<?= $_GET['id'] ?>" hidden>
+                <input type="text" id="feedback_id" name="feedback_id" value="<?= htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8') ?>" hidden>
                     <h2>Update Feedback</h2>
                     <table class="popup_table">
                         <tr>
                             <th>Event Name</th>
                             <td class="fill">:</td>
-                            <td><?php echo"$ret_event_name"?></td>
+                            <td><?php echo htmlspecialchars($ret_event_name, ENT_QUOTES, 'UTF-8'); ?></td>
                         </tr>
                         <tr>
                             <th>Rating</th>
                             <td class="fill">:</td>
                             <td>
-                                <input type="radio" name="rating" value="1" <?php if ($ret_rating == 1) echo "checked"; ?>>1
-                                <input type="radio" name="rating" value="2" <?php if ($ret_rating == 2) echo "checked"; ?>>2
-                                <input type="radio" name="rating" value="3" <?php if ($ret_rating == 3) echo "checked"; ?>>3
-                                <input type="radio" name="rating" value="4" <?php if ($ret_rating == 4) echo "checked"; ?>>4
-                                <input type="radio" name="rating" value="5" <?php if ($ret_rating == 5) echo "checked"; ?>>5
+                                <input type="radio" name="rating" value="1" 
+                                    <?php if ($ret_rating == 1) { echo "checked"; } ?>>1
+                                <input type="radio" name="rating" value="2" 
+                                    <?php if ($ret_rating == 2) { echo "checked"; } ?>>2
+                                <input type="radio" name="rating" value="3" 
+                                    <?php if ($ret_rating == 3) { echo "checked"; } ?>>3
+                                <input type="radio" name="rating" value="4" 
+                                    <?php if ($ret_rating == 4) { echo "checked"; } ?>>4
+                                <input type="radio" name="rating" value="5" 
+                                    <?php if ($ret_rating == 5) { echo "checked"; } ?>>5
                             </td>
                         </tr>
                         <tr>
@@ -136,37 +145,52 @@
                         }
                     } else {
                         echo '<tr><td colspan="7">0 results</td></tr>';
-                    } 
+                    }
                 ?>
             </table>
         </div>
     </body>
     <?php
-        function update_table($conn, $sql){
-			if (mysqli_query($conn, $sql)) {
-				return true;
-			} else {
-				echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-				return false;
-			}
-		}
-
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $student_id = $_SESSION["student_id"];
-            $feedback_id = $_POST['feedback_id'];
-            $rating = trim($_POST["rating"]);
-            $comment = trim($_POST["comment"]);
-            
-            if(isset($_POST["confirm"])){
-                $sql = "UPDATE feedback SET rating = '$rating', comment = '$comment' WHERE feedback_id = '$feedback_id'";
-                $status = update_table($conn, $sql);
-                if($status){
-                    echo '<script>auto_popup_message("Feedback has been updated");</script>';
-                }
-                else{
-                    echo '<script>auto_popup_message("There was an error updating your feedback");</script>';
-                }
+        function update_table($conn, $sql) {
+            // Use prepared statements to execute SQL queries
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_execute($stmt);
+                return true;
+            } else {
+                echo "Error: " . mysqli_error($conn) . "<br>";
+                return false;
             }
-        }   
-            ?>
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $student_id = $_SESSION["student_id"];
+            $feedback_id = isset($_POST['feedback_id']) ? $_POST['feedback_id'] : '';
+            $rating = isset($_POST["rating"]) ? trim($_POST["rating"]) : '';
+            $comment = isset($_POST["comment"]) ? trim($_POST["comment"]) : '';
+
+            if (!empty($rating) && !empty($comment)) {
+                // Sanitize user inputs
+                $rating = filter_var($rating, FILTER_SANITIZE_NUMBER_INT);
+                $comment = filter_var($comment, FILTER_SANITIZE_STRING);
+
+                if (isset($_POST["confirm"])) {
+                    // Use prepared statements to update the database
+                    $sql = "UPDATE feedback SET rating = ?, comment = ? WHERE feedback_id = ?";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "isi", $rating, $comment, $feedback_id);
+                    
+                    $status = update_table($conn, $sql);
+                    if ($status) {
+                        echo '<script>auto_popup_message("Feedback has been updated");</script>';
+                    } else {
+                        echo '<script>auto_popup_message("There was an error updating your feedback");</script>';
+                    }
+
+                    mysqli_stmt_close($stmt);
+                }
+            } else {
+                echo '<script>auto_popup_message("Please fill in all required fields.");</script>';
+            }
+        }
+    ?>
 </html>
