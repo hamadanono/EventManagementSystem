@@ -1,14 +1,18 @@
 <?php
-    include('config.php');
-	session_start();
+    include('../../config.php');
+    include('../../utils.php');
 
+    session_start();
+    validateSession('student_id', '../../index.php');
+
+    
     $student_id = $_SESSION['student_id'];
 	$sql = "SELECT * FROM student WHERE student_id = '$student_id'";
 	$result = mysqli_query($conn, $sql);
 	if($result){
-		$row = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
 		if($row){
-			$student_name= $row['student_name'];
+            $student_name= $row['student_name'];
 			$student_ic = $row['student_ic'];
 			$student_id = $row['student_id'];
 			$student_email = $row['student_email'];
@@ -18,54 +22,18 @@
 		}
 	}
 
-    if (!isset($_SESSION['student_id'])) {
-        header("Location: index.php");
-        exit();
-    }
+    customHeader('Student Profile', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Edit Profile</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="src/icon.png">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <script src="script/script.js"></script>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_student.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div id="popup_page_stay" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message_stay"></p>
-				<div>
-					<button class="button" onclick="location.href='student_profile.php'">Close</button>
-				</div>
-            </div>
-        </div>
+        <?php
+            studentNavigation();
+            popUp('student_profile.php')
+        ?>
 
         <div class="profile-row">
             <div class="profile-left">
-                <?php echo "<img src='uploads/profile/$student_profilePic' alt='Profile Picture'>";?> 
+                <?php echo "<img src='../../../public/storage/profile/$student_profilePic' alt='Profile Picture'>";?> 
             </div>
             
             <div class="profile-right">
@@ -119,7 +87,7 @@
         </div>
     </body>
     <?php
-        $targetdir = "uploads/profile/";
+        $targetdir = "../../../public/storage/profile/";
         $targetfile = "";
         $uploadstat = 0;
         $imgfiletype = "";
@@ -132,16 +100,6 @@
             $row = mysqli_fetch_assoc($retrieved_result);
             if ($row) {
                 $imagename = $row['student_profilePic'];
-            }
-        }
-
-        function update_table($conn, $sql)
-        {
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
             }
         }
 
@@ -158,7 +116,7 @@
                 $sql = "UPDATE student SET student_name = '$student_name', student_ic = '$student_ic', student_id = '$student_id',
                         student_email = '$student_email', student_phone = '$student_phone', student_address = '$student_address' 
                         WHERE student_id = '$student_id'";
-                $status = update_table($conn, $sql);
+                $status = executeQuery($conn, $sql);
 
                 if ($status) {
                     echo '<script>popup_page_stay("Your profile has been updated");</script>';
@@ -201,7 +159,7 @@
                         student_email = '$student_email', student_phone = '$student_phone', student_address = '$student_address', 
                         student_profilePic = '$imgnewname' WHERE student_id = '$student_id'";
 
-                $status = update_table($conn, $sql);
+                $status = executeQuery($conn, $sql);
 
                 if ($status) {
                     if (move_uploaded_file($_FILES["student_profilePic"]["tmp_name"], $targetfile)) {
