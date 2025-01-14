@@ -1,6 +1,9 @@
 <?php
-    include 'config.php';
+    include('../../config.php');
+    include('../../utils.php');
+
     session_start();
+    validateSession('admin_id', '../../index.php');
 
     $pageurl = $_SERVER['REQUEST_URI'];
     $takeurl = parse_url($pageurl);
@@ -23,56 +26,36 @@
         $result = mysqli_stmt_get_result($stmt);
     }
 
-    if (!isset($_SESSION['admin_id'])) {
-        header("location: index.php");
-        exit();
-    }
+    customHeader('Admin Event Report', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Admin - View Report</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
-
     <body>
-        <script src="script/script.js"></script>
+        <?php
+            adminNavigation();
+        ?>
 
-            <div class="header-row">
-                <div class="header-main">
-                    <img src="src/icon.png" alt="Website Logo">
-                    <h2>
-                        <span>FKI</span>
-                        <span>EVENT</span>
-                        <span>MANAGEMENT</span>
-                    </h2>
-                    <table class="header-nav">
-                    <thead>
-                        <tr>
-                            <th>Navigation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php include 'navigation_admin.php'; ?>
-                        </tr>
-                    </tbody>
+        <div class="header-row">
+            <div class="header-main">
+                <img src="src/icon.png" alt="Website Logo">
+                <h2>
+                    <span>FKI</span>
+                    <span>EVENT</span>
+                    <span>MANAGEMENT</span>
+                </h2>
+                <table class="header-nav">
+                    <tr>
+                        <?php include ('navigation_admin.php') ?>
+                    </tr>
                 </table>
-                </div>
             </div>
+        </div>
 
         <?php
             echo"<div class='report-row'>";
             if (isset($result) && mysqli_num_rows($result) > 0) {
-                $rows = $result->fetch_assoc();
+                $rows = $result->fetch_assoc(); 
                 echo"<div class='report-left'>";
-                echo "<img src='uploads/poster/" . ($rows["event_poster"] ?? '') . "' alt='Event Poster'>";
+                echo "<img src='../../../public/storage/profile/" . ($rows["event_poster"] ?? '') . "' alt='Event Poster'>";
                 echo "</div>";
                 echo"<div class='report-right'>";
                 echo "<h1>" . ($rows["event_name"] ?? '') . " Report</h1>";
@@ -92,48 +75,48 @@
                 echo "<div class=middle-button>";
                 echo "<button class='normal-btn' onclick='window.print()'>Save Report</button>";
                 echo "</div>";
-// registered student list
-echo "<table border='1' width='100%' class='event-list-table'>";
-echo "<tr>";
-echo "<th colspan='13'>LIST OF REGISTERED STUDENT</th>";
-echo "</tr>";
-echo "<tr>";
-echo "<td width='2%'>No</td>";
-echo "<td width='15%'>Student Name</td>";
-echo "<td width='5%'>Student Matrics Number</td>";
-echo "<td width='5%'>Attendance Status</td>";
-echo "</tr>";
+                // registered student list
+                echo "<table border='1' width='100%' class='event-list-table'>";
+                echo "<tr>";
+                echo "<th colspan='13'>LIST OF REGISTERED STUDENT</th>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td width='2%'>No</td>";
+                echo "<td width='15%'>Student Name</td>";
+                echo "<td width='5%'>Student Matrics Number</td>";
+                echo "<td width='5%'>Attendance Status</td>";
+                echo "</tr>";
 
 
-// Fetch the list of registered students
-$registeredStudentsSql = "SELECT s.student_name, s.student_id, att.attendance_status
-                          FROM student s
-                          LEFT JOIN attendee att ON s.student_id = att.student_id
-                          WHERE att.event_id = ?";
-$registeredStudentsStmt = mysqli_prepare($conn, $registeredStudentsSql);
-mysqli_stmt_bind_param($registeredStudentsStmt, "i", $event_id);
-mysqli_stmt_execute($registeredStudentsStmt);
-$registeredStudentsResult = mysqli_stmt_get_result($registeredStudentsStmt);
+                // Fetch the list of registered students
+                $registeredStudentsSql = "SELECT s.student_name, s.student_id, att.attendance_status
+                                        FROM student s
+                                        LEFT JOIN attendee att ON s.student_id = att.student_id
+                                        WHERE att.event_id = ?";
+                $registeredStudentsStmt = mysqli_prepare($conn, $registeredStudentsSql);
+                mysqli_stmt_bind_param($registeredStudentsStmt, "i", $event_id);
+                mysqli_stmt_execute($registeredStudentsStmt);
+                $registeredStudentsResult = mysqli_stmt_get_result($registeredStudentsStmt);
 
-$numrow = 1;
-while ($registeredStudentRow = mysqli_fetch_assoc($registeredStudentsResult)) {
-    echo "<tr>";
+                $numrow = 1;
+                while ($registeredStudentRow = mysqli_fetch_assoc($registeredStudentsResult)) {
+                    echo "<tr>";
 
-    if ($registeredStudentRow["attendance_status"] == 'A') {
-        echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
-        echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
-        echo '<td>ATTENDED</td>';
-    } elseif ($registeredStudentRow["attendance_status"] == 'B') {
-        echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
-        echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
-        echo '<td>ABSENT</td>';
-    }
+                    if ($registeredStudentRow["attendance_status"] == 'A') {
+                        echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
+                        echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
+                        echo '<td>ATTENDED</td>';
+                    } else if ($registeredStudentRow["attendance_status"] == 'B') {
+                        echo "<td>" . $numrow . "</td><td>" . $registeredStudentRow["student_name"] . "</td>";
+                        echo '<td>' . $registeredStudentRow["student_id"] . '</td>';
+                        echo '<td>ABSENT</td>';
+                    }
 
-    echo "</tr>";
-    $numrow++;
-}
+                    echo "</tr>";
+                    $numrow++;
+                }
 
-echo "</table>";
+                echo "</table>";
 
                 // feedback list
                 echo "<table border='1' width='100%' class='event-list-table'>";
@@ -175,5 +158,5 @@ echo "</table>";
             }
             ?>
         </div>
-    </body>
+    </body>   
 </html>
