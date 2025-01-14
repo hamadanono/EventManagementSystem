@@ -1,6 +1,6 @@
 <?php
-    include('../../config.php');
-    include('../../utils.php');
+    include '../../config.php';
+    include '../../utils.php';
 
     session_start();
     validateSession('student_id', '../../index.php');
@@ -39,7 +39,6 @@
                         });
                     </script>';
                 break;
-
             case 'wrong_password':
                 echo '<script>
                         document.addEventListener("DOMContentLoaded", function() {
@@ -47,9 +46,16 @@
                         });
                     </script>';
                 break;
+            default:
+                echo '<script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            console.warn("Unexpected registration status: ' . htmlspecialchars($_SESSION['registration_status']) . '");
+                        });
+                    </script>';
+                break;
         }
         unset($_SESSION['registration_status']);
-    }
+    }    
 
     $pastEventsSql = "SELECT e.*, a.attendee_id, a.attendance_status
             FROM event e
