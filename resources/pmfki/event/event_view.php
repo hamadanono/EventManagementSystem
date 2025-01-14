@@ -1,44 +1,17 @@
 <?php
-    include('config.php');
-    include('utils.php');
+    include('../../config.php');
+    include('../../utils.php');
 
     session_start();
-    validateSession('pmfki_id', 'index.php');
+    validateSession('pmfki_id', '../../index.php');
 
-    // if(!isset($_SESSION['pmfki_id'])){
-    //     header("location: index.php");
-    //     exit();
-    // }
+    customHeader('PMFKI Proposal', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="/WebProject/src/icon.png">
-    	<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="/WebProject/src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
         <?php
+            pmfkiNavigation();
+
             if(isset($_GET["id"]) && $_GET["id"] != ""){
                 $sql = "SELECT e.*, p.pmfki_name, a.name
                 FROM event e
@@ -69,16 +42,14 @@
                     $admin_name = $row["name"];
                     $pmfki_name = $row["pmfki_name"];
                 }
-            
             }
-
         ?>
 
         <main>
             <h1 class="header_1">Event Details</h1>
             <div class="event-view-row">
                     <div class="col-left"> 
-                        <img src="uploads/poster/<?php echo $event_poster; ?>" alt="Poster Image" class="view-event-poster">
+                        <img src="../../../public/storage/profile/<?php echo $event_poster; ?>" alt="Poster Image" class="view-event-poster">
                     </div>
                     <div class="col-right"> 
                         <table class="event-view-table" >
@@ -148,13 +119,7 @@
                             <th class="fill">:</th>
                             <td>
                                 <?php
-                                    if ($event_status == 'A') {
-                                        echo "<p class='stat-active'>ACTIVATE</p>";
-                                    } elseif ($event_status == 'C') {
-                                        echo "<p class='stat-closed'>CLOSED</p>";
-                                    } elseif ($event_status == 'F') {
-                                        echo "<p class='stat-closed'>FINISHED</p>";
-                                    }
+                                    displayEventStatus($even_status);
                                 ?>
                             </td>
                         </tr>
