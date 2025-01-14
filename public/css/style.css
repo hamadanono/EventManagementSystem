@@ -1272,20 +1272,20 @@ body {
     box-sizing: border-box;
     }
     
-    .details {
+.details {
     flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;
-    }
+}
     
-    .row {
+.row {
     display: flex;
     padding: 0px 10px;
     overflow: hidden;
     vertical-align: middle;
     color: white;
-    }
+}
     
     .rowtitle {
         margin: 10px;
