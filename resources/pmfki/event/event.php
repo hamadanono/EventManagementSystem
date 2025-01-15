@@ -1,14 +1,9 @@
 <?php
-    include('config.php');
-    include('utils.php');
+    include '../../config.php';
+    include '../../utils.php';
 
     session_start();
-    validateSession('pmfki_id', 'index.php');
-
-    // if(!isset($_SESSION['pmfki_id'])){
-    //     header("location: index.php");
-    //     exit();
-    // }
+    validateSession('pmfki_id', '../../index.php');
 
     $sql = "SELECT * FROM event WHERE event_status=? OR event_status=? OR event_status=?";
     $stmt = mysqli_prepare($conn, $sql);
@@ -27,35 +22,14 @@
     } else {
         echo "Error in preparing statement: " . mysqli_error($conn);
     }
+
+    customHeader('PMFKI Proposal', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>PMFKI - Event List</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-    	<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
-
     <body>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <?php
+            pmfkiNavigation();
+        ?>
 
         <div class="table-list">
             <h1>Event List</h1>

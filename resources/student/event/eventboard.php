@@ -1,14 +1,9 @@
 <?php
-    include('config.php');
-    include('utils.php');
+    include('../../config.php');
+    include('../../utils.php');
 
     session_start();
-    validateSession('student_id', 'index.php');
-
-    // if (!isset($_SESSION['student_id'])) {
-    //     header("Location: index.php");
-    //     exit();
-    // }
+    validateSession('student_id', '../../index.php');
 
     $studentId = $_SESSION['student_id'];
 
@@ -33,36 +28,14 @@
     if (!$result) {
         die('Error in SQL query: ' . mysqli_error($conn));
     }
+
+    customHeader('Event Board', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>Student - Event Board</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" type="image/png" href="src/icon.png">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <script src="script/script.js"></script>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_student.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <?php
+            studentNavigation();
+        ?>
 
         <div id="join_confirmation_popup" class="popup-container">
             <div class="popup-content">
@@ -90,7 +63,7 @@
 
                     echo '<div class="card">';
                     echo '<div class="image">';
-                    echo '<img src="uploads/poster/' . $row["event_poster"] . '" alt="Event Poster" class="image-content">';
+                    echo '<img src="../../../public/storage/poster/' . $row["event_poster"] . '" alt="Event Poster" class="image-content">';
                     echo '</div>';
                     echo '<div class="details">';
                     echo '<div class="rowtitle">' . $row["event_name"] . '</div>';

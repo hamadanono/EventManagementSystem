@@ -1,14 +1,9 @@
 <?php
-    include("config.php");
-    include('utils.php');
+    include '../../config.php';
+    include '../../utils.php';
 
     session_start();
-    validateSession('pmfki_id', 'index.php');
-
-    // if(!isset($_SESSION['pmfki_id'])){
-    //     header("location: index.php");
-    //     exit();
-    // }
+    validateSession('pmfki_id', '../../index.php');
 
     if (isset($_GET["id"]) && $_GET["id"] != "") {
         $id = $_GET["id"];
@@ -30,4 +25,3 @@
         mysqli_stmt_close($stmt);
     }
     mysqli_close($conn);
-?>

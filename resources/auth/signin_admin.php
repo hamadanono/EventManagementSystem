@@ -1,6 +1,6 @@
 <?php
-    include('../utils.php');
-    authHeader('Admin Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
+    include '../utils.php';
+    customHeader('Admin Sign In', '../../public/css/style.css', '../../public/icon/icon.png');
 ?>
 
 <body>
@@ -39,7 +39,7 @@
     </div>
 </body>
 <?php
-    include('../config.php');
+    include '../config.php';
     
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $admin_id = strtoupper(trim($_POST['admin_id']));
@@ -56,7 +56,7 @@
         }
         else{
             echo '<script>popup_page_stay("Username or Password is incorrect")</script>';
-        } 
+        }
     }
     $conn -> close();
 ?>

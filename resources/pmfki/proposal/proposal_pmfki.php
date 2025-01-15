@@ -1,32 +1,18 @@
 <?php
-    include('config.php');
-	session_start();
+    include '../../config.php';
+    include '../../utils.php';
 
-    if(!isset($_SESSION['pmfki_id'])){
-		header("location: index.php");
-		exit();
-	}
+    session_start();
+    validateSession('pmfki_id', '../../index.php');
+
+    customHeader('PMFKI Proposal', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>PMFKI - Event Proposal</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-    	<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
     <body>
-        <script src="script/script.js"></script>
-
-        <div id="popup_page_stay" class="popup-container">
-            <div class="popup-content">
-                <p id="popup_message_stay"></p>
-                <button class="button" onclick="location.href='proposal_pmfki.php'">Close</button>
-            </div>
-        </div>
+        <?php
+            pmfkiNavigation();
+            popUp('proposal_pmfki.php');
+        ?>
 
         <div id="popup_form" class="popup-form">
             <div class="popup-content-event">
@@ -102,22 +88,6 @@
             </div>
         </div>
 
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
         <div class="table-list">
             <h1>Event Proposal</h1>
                 <div class=middle-button>
@@ -141,10 +111,8 @@
                     $sql = "SELECT * FROM event e WHERE NOT e.event_status = 'F'";
                     $stmt = mysqli_prepare($conn, $sql);
 
-                    // Execute the statement
                     mysqli_stmt_execute($stmt);
 
-                    // Get the result
                     $result = mysqli_stmt_get_result($stmt);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -157,14 +125,11 @@
                             $endDateFormat = date("d/m/Y", strtotime($row["event_endDate"]));
 
                             if ($startDateFormat == $endDateFormat) {
-                                // If start and end dates are the same, display only start date
                                 echo '<td>' . $startDateFormat . '</td>';
                             } else {
-                                // If start and end dates are different, display as "startDate - endDate"
                                 echo '<td>' . $startDateFormat . ' - ' . $endDateFormat . '</td>';
                             }
 
-                            // Display time in 12-hour format
                             $startTime12Hour = date("h:i A", strtotime($row["event_startTime"]));
                             $endTime12Hour = date("h:i A", strtotime($row["event_endTime"]));
 
@@ -229,25 +194,13 @@
             VALUES ('$name', '$synopsis', '$objective', '$impact', '$startDate',
             '$endDate', '$startTime', '$endTime', '$venue', 'P', '" . $_SESSION["pmfki_id"] . "')";
         
-            $status = insertTo_DBTable($conn, $sql);
+            $status = executeQuery($conn, $sql);
             if ($status) {
                 echo "<script>popup_page_stay('Proposal Added Successfully');</script>";
             } else {
                 echo "<script>popup_page_stay('Failed to Add Proposal');</script>";
             } 
         }
-
-        //close db connection
         mysqli_close($conn);
-
-        //Function to insert data to database table
-        function insertTo_DBTable($conn, $sql){
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
     ?>
 </html>

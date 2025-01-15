@@ -1492,22 +1492,6 @@ body {
 @media screen and (max-width: 950px) {
     .header-row{
         height: 20%;
-        border: 1px solid white;
-    }
-    
-    .header-main img{
-        border: 1px solid white;
-        
-    }
-    
-    .header-main h2 span {
-        border: 1px solid white;
-        
-    }
-    
-    .header-nav a {
-        
-        border: 1px solid white;
     }
 }
 

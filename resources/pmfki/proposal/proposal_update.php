@@ -1,43 +1,18 @@
 <?php
-    include('config.php');
-    session_start();
+    include '../../config.php';
+    include '../../utils.php';
 
-    if(!isset($_SESSION['pmfki_id'])){
-        header("location: index.php");
-        exit();
-    }
+    session_start();
+    validateSession('pmfki_id', '../../index.php');
+
+    customHeader('PMFKI Proposal', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-    	<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
-
     <body>
-
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    
         <?php
+            pmfkiNavigation();
+            popUpSuccess('proposal_update.php');
+    
             if(isset($_GET["id"]) && $_GET["id"] != ""){
                 $sql = "SELECT e.*, p.pmfki_name, a.name
                 FROM event e
@@ -73,13 +48,6 @@
         ?>
     
         <main>
-            <div id="popup" class="popup-container">
-                <div class="popup-content">
-                    <p id="popup_message"></p>
-                    <button class="button" onclick="location.href='proposal_update.php'">Close</button>
-                </div>
-            </div>
-
             <div class="event-row">
                 <div class="proposal-details">
                     <h1>Update Event Proposal Details</h1>
@@ -144,15 +112,7 @@
                             <td>:</td>
                             <td>
                                 <?php
-                                    if ($event_status == 'A' || $event_status == 'C') {
-                                        echo "<p class='stat-active'>Approved </p>";
-                                    } else if ($event_status == 'P') {
-                                        echo "<p class='stat-pending'>Pending </p>";
-                                    } else if ($event_status == 'D') {
-                                        echo "<p class='stat-closed'>Declined </p>";
-                                    } else {
-                                        echo "";
-                                    }
+                                    displayEventStatus($even_status);
                                 ?>
                             </td>
                         </tr>
@@ -179,16 +139,6 @@
         </main>
     </body>
     <?php
-        // Function to insert data into the database table using prepared statements
-        function update_table($conn, $sql){
-            if (mysqli_query($conn, $sql)) {
-                return true;
-            } else {
-                echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-                return false;
-            }
-        }
-
         //this block is called when button Submit is clicked
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //values for add or edit
@@ -208,18 +158,14 @@
                 event_impact = '$event_impact', event_startDate = '$event_startDate', event_endDate = '$event_endDate',
                 event_startTime = '$event_startTime', event_endTime = '$event_endTime', event_venue = '$event_venue', event_status = 'P'
                 WHERE  event_id='$event_id'";
-                $status = update_table($conn, $sql);
+                $status = executeQuery($conn, $sql);
                 if ($status) {
-                    // Display a popup message
                     echo "<script>alert('Proposal updated successfully!');</script>";
-                    // Redirect to the profile page after successful update
                     echo "<script>window.location.href='proposal_view.php?id=$event_id';</script>";
                     exit();
                 }
                 else{
                      echo "<script>alert('Failed to update proposal details');</script>";
-                
-                     // Redirect to the profile page after successful update
                      echo "<script>window.location.href='proposal_view.php?id=$event_id';</script>";
                 } 
             }

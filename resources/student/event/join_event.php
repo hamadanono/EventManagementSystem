@@ -1,14 +1,9 @@
 <?php
-    include('config.php');
-    include('utils.php');
+    include('../../config.php');
+    include('../../utils.php');
 
     session_start();
-    validateSession('student_id', 'index.php');
-
-    // if (!isset($_SESSION['student_id'])) {
-    //     header("Location: index.php");
-    //     exit();
-    // }
+    validateSession('student_id', '../../index.php');
 
     $studentId = $_SESSION['student_id'];
 
@@ -45,4 +40,3 @@
 
     header("Location: eventboard.php");
     exit();
-?>

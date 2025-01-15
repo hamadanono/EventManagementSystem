@@ -1,147 +1,17 @@
 <?php
-    include('config.php');
-    include('utils.php');
+    include '../../config.php';
+    include '../../utils.php';
 
-	session_start();
-    validateSession('pmfki_id', 'index.php');
+    session_start();
+    validateSession('pmfki_id', '../../index.php');
 
-    // if(!isset($_SESSION['pmfki_id'])){
-	// 	header("location: index.php");
-	// 	exit();
-	// }
-
-    // function to insert data into the database table using prepared statements
-    function update_table($conn, $sql){
-        if (mysqli_query($conn, $sql)) {
-            return true;
-        } else {
-            echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-            return false;
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $event_id = $_POST['event_id'];
-        $event_pwd = $_POST['event_pwd'];
-        $event_status = $_POST['event_status'];
-        $event_posterDesc= mysqli_real_escape_string($conn, $_POST['event_posterDesc']);
-
-        $target_dir = "public/storage//poster";
-
-        $uploadstat = 0;
-
-        // retrieve certification student details for display
-        $stmtSelect = $conn->prepare("SELECT * FROM event WHERE event_id = ?");
-        $stmtSelect->bind_param("i", $event_id);
-        $stmtSelect->execute();
-        $result = $stmtSelect->get_result();
-        $event = $result->fetch_assoc();
-        $stmtSelect->close();
-
-        // Check if there is an image to be uploaded
-        if (isset($_FILES['poster-img']) && $_FILES['poster-img']["name"] != "") {
-
-            $filetmp = $_FILES['poster-img'];
-            $uploadfileName = $filetmp["name"];
-            $imageFileType = strtolower(pathinfo($uploadfileName, PATHINFO_EXTENSION));
-            $randomString = bin2hex(random_bytes(8)); // Generates a random string (16 characters in this case)
-            $timestamp = time();
-            $target_file = $target_dir . $event_id . "_" . $randomString . "_" . $timestamp . "." . $imageFileType;
-            $imgnewname = $event_id . "_" . $randomString . "_" . $timestamp . "." . $imageFileType;
-
-
-            $currimagetarget_file = "public/storage/poster/" . $event['event_poster'];
-
-            if ($_FILES['poster-img']["size"] > 100000000) {
-                $uploadstat = 0;
-                echo "<script>alert('Size image is too big. Please resize');</script>";
-                echo "<script>window.location.href='mycertification_edit.php';</script>";
-                exit();
-            }
-
-            if (!in_array($imageFileType, ["jpg", "jpeg", "png", ])) {
-                $uploadstat = 0;
-                echo "<script>alert('Sorry, only JPG, JPEG & PNG files are allowed.');</script>";
-                echo "<script>window.location.href='mycertification_edit.php';</script>";
-                exit();
-            }
-
-            if (file_exists($currimagetarget_file)){
-                unlink($currimagetarget_file);
-                $uploadstat = 1;
-            }
-            else{
-                $uploadstat = 1;
-            }
-
-            if($uploadstat){
-                $sql = "UPDATE event SET event_pwd = '$event_pwd', event_status = '$event_status', event_posterDesc = '$event_posterDesc', event_poster='$imgnewname' WHERE  event_id='$event_id'";
-                $status = update_table($conn, $sql);
-                if($status){
-                    if(move_uploaded_file($_FILES["poster-img"]["tmp_name"], $target_file)){  	
-                        echo "<script>alert('Event updated successfully!');</script>";
-                        echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
-                        exit();
-                    }
-                    else{
-                        echo "<script>alert('Failed to update event details');</script>";
-                        echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
-                    }
-                }
-                else{
-                    echo '<script>connection_fail();</script>';
-                }
-            }
-
-        } else {
-            $sql = "UPDATE event SET event_pwd = '$event_pwd', event_status = '$event_status', event_posterDesc = '$event_posterDesc' WHERE  event_id='$event_id'";
-            $status = update_table($conn, $sql);
-
-            if ($status) {
-               echo "<script>alert('Event updated successfully!');</script>";
-               echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
-               exit();
-           }
-           else{
-                echo "<script>alert('Failed to update event details');</script>";
-                echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
-           }
-       
-            $stmtUpdate->close();
-        }
-    }
+    customHeader('PMFKI Event', '../../../public/css/style.css', '../../../public/icon/icon.png');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-        <title>FKI Event Management</title>
-        <link rel="icon" type="image/png" href="src/icon.png">
-    	<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap">
-    </head>
-
     <body>
-        <div class="header-row">
-            <div class="header-main">
-                <img src="src/icon.png" alt="Website Logo">
-                <h2>
-                    <span>FKI</span>
-                    <span>EVENT</span>
-                    <span>MANAGEMENT</span>
-                </h2>
-                <table class="header-nav">
-                    <tr>
-                        <?php include ('navigation_pmfki.php') ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        
-
         <?php
+            pmfkiNavigation();
+
             if(isset($_GET["id"]) && $_GET["id"] != ""){
                 $sql = "SELECT e.*, p.pmfki_name, a.name
                 FROM event e
@@ -178,7 +48,7 @@
         <h1 class="header_1">Update Event Details</h1>
         <div class="event-view-row">
             <div class="col-left"> 
-                <img src="uploads/poster/<?php echo $event_poster; ?>" alt="poster img" class="view-event-poster">
+                <img src="../../../public/storage/profile/<?php echo $event_poster; ?>" alt="poster img" class="view-event-poster">
             </div>
             <div class="col-right"> 
                 <form action="event_update.php" method="post" enctype="multipart/form-data">
@@ -292,4 +162,97 @@
             </div>
         </div>
     </body>
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $event_id = $_POST['event_id'];
+            $event_pwd = $_POST['event_pwd'];
+            $event_status = $_POST['event_status'];
+            $event_posterDesc= mysqli_real_escape_string($conn, $_POST['event_posterDesc']);
+
+            $target_dir = "../../../public/storage/profile/";
+
+            $uploadstat = 0;
+
+            // retrieve certification student details for display
+            $stmtSelect = $conn->prepare("SELECT * FROM event WHERE event_id = ?");
+            $stmtSelect->bind_param("i", $event_id);
+            $stmtSelect->execute();
+            $result = $stmtSelect->get_result();
+            $event = $result->fetch_assoc();
+            $stmtSelect->close();
+
+            // check if there is an image to be uploaded
+            if (isset($_FILES['poster-img']) && $_FILES['poster-img']["name"] != "") {
+
+                $filetmp = $_FILES['poster-img'];
+                $uploadfileName = $filetmp["name"];
+                $imageFileType = strtolower(pathinfo($uploadfileName, PATHINFO_EXTENSION));
+                $randomString = bin2hex(random_bytes(8)); 
+                $timestamp = time();
+                $target_file = $target_dir . $event_id . "_" . $randomString . "_" . $timestamp . "." . $imageFileType;
+                $imgnewname = $event_id . "_" . $randomString . "_" . $timestamp . "." . $imageFileType;
+
+
+                $currimagetarget_file = "public/storage/poster/" . $event['event_poster'];
+
+                if ($_FILES['poster-img']["size"] > 100000000) {
+                    $uploadstat = 0;
+                    echo "<script>alert('Size image is too big. Please resize');</script>";
+                    echo "<script>window.location.href='mycertification_edit.php';</script>";
+                    exit();
+                }
+
+                if (!in_array($imageFileType, ["jpg", "jpeg", "png", ])) {
+                    $uploadstat = 0;
+                    echo "<script>alert('Sorry, only JPG, JPEG & PNG files are allowed.');</script>";
+                    echo "<script>window.location.href='mycertification_edit.php';</script>";
+                    exit();
+                }
+
+                if (file_exists($currimagetarget_file)){
+                    unlink($currimagetarget_file);
+                    $uploadstat = 1;
+                }
+                else{
+                    $uploadstat = 1;
+                }
+
+                if($uploadstat){
+                    $sql = "UPDATE event SET event_pwd = '$event_pwd', event_status = '$event_status', event_posterDesc = '$event_posterDesc', event_poster='$imgnewname' WHERE  event_id='$event_id'";
+                    $status = executeQuery($conn, $sql);
+                    if($status){
+                        if(move_uploaded_file($_FILES["poster-img"]["tmp_name"], $target_file)){  	
+                            echo "<script>alert('Event updated successfully!');</script>";
+                            echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
+                            exit();
+                        }
+                        else{
+                            echo "<script>alert('Failed to update event details');</script>";
+                            echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
+                        }
+                    }
+                    else{
+                        echo '<script>connection_fail();</script>';
+                    }
+                }
+
+            } else {
+                $sql = "UPDATE event SET event_pwd = '$event_pwd', event_status = '$event_status', event_posterDesc = '$event_posterDesc' WHERE  event_id='$event_id'";
+                $status = executeQuery($conn, $sql);
+
+                if ($status) {
+                echo "<script>alert('Event updated successfully!');</script>";
+                echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
+                exit();
+            }
+            else{
+                    echo "<script>alert('Failed to update event details');</script>";
+                    echo "<script>window.location.href='event_view.php?id=$event_id';</script>";
+            }
+        
+                $stmtUpdate->close();
+            }
+        }
+    ?>
 </html>
+

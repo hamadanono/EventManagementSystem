@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    include 'config.php';
+    include('../../config.php');
+    include('../../utils.php');
 
+    session_start();
+    validateSession('student_id', '../../index.php');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_id = $_POST["event_id_to_feedback"];
@@ -14,7 +16,7 @@
             $sql = "INSERT INTO feedback (rating, comment, event_id, student_id) 
                     VALUES ('$rating', '$comment', '$event_id', '$student_id')";
 
-            $status = insertTo_DBTable($conn, $sql);
+            $status = executeQuery($conn, $sql);
             if ($status) {
 
                 echo "<script>alert('Feedback Added Successfully!');</script>";
@@ -32,13 +34,3 @@
     }
 
     mysqli_close($conn);
-
-    function insertTo_DBTable($conn, $sql) {
-        if (mysqli_query($conn, $sql)) {
-            return true;
-        } else {
-            echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-            return false;
-        }
-    }
-?>

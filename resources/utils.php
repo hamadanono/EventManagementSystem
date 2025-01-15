@@ -1,5 +1,5 @@
 <?php
-    function authHeader($title, $css, $icon){
+    function customHeader($title, $css, $icon){
         echo'
             <!DOCTYPE html>
             <html lang="en">
@@ -13,6 +13,76 @@
             </head>
         ';
     }
+
+    function adminNavigation() {
+        echo '
+            <div class="header-row">
+                <div class="header-main">
+                    <img src="../../../public/icon/icon.png" alt="Website Logo">
+                    <h2>
+                        <span>FKI</span>
+                        <span>EVENT</span>
+                        <span>MANAGEMENT</span>
+                    </h2>
+                    <table class="header-nav">
+                        <tr>';
+                        
+                        include '../../navigation/navigation_admin.php';
+                        
+                        echo '
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <script src="../../../public/js/script.js"></script>
+        ';
+    }
+
+    function studentNavigation(){
+        echo '
+            <div class="header-row">
+                <div class="header-main">
+                    <img src="../../../public/icon/icon.png" alt="Website Logo">
+                    <h2>
+                        <span>FKI</span>
+                        <span>EVENT</span>
+                        <span>MANAGEMENT</span>
+                    </h2>
+                    <table class="header-nav">
+                        <tr>';
+                            include '../../navigation/navigation_student.php';
+                        echo '</tr>
+                    </table>
+                </div>
+            </div>
+
+            <script src="../../../public/js/script.js"></script>
+        ';
+    }
+
+    function pmfkiNavigation(){
+        echo '
+            <div class="header-row">
+            <div class="header-main">
+                <img src="src/icon.png" alt="Website Logo">
+                <h2>
+                    <span>FKI</span>
+                    <span>EVENT</span>
+                    <span>MANAGEMENT</span>
+                </h2>
+                <table class="header-nav">
+                    <tr>';
+                        include 'navigation_pmfki.php';
+                    echo'</tr>
+                </table>
+            </div>
+        </div>
+
+        <script src="../../../public/js/script.js"></script>
+        ';
+    }
+
 
     function popUp($location) {
         echo '
@@ -54,13 +124,38 @@
         }
     }
 
-    function getEventStatusLabel($status) {
-        switch ($status) {
-            case 'A': return 'ACTIVE';
-            case 'C': return 'CLOSED';
-            case 'F': return 'FINISHED';
-            case 'P': return 'PENDING';
-            default: return 'UNKNOWN';
+    function displayTableEventStatus($event_status) {
+        if ($event_status == 'A' || $event_status == 'C') {
+            echo "<td class=\"status-active\">Approved</td>";
+        } elseif ($event_status == 'P') {
+            echo "<td class=\"status-pending\">Pending</td>";
+        } elseif ($event_status == 'D') {
+            echo "<td class=\"status-closed\">Declined</td>";
+        } else {
+            echo "<td>" . htmlspecialchars($event_status) . "</td>";
         }
     }
-?>
+
+    function displayEventStatus($event_status) {
+        if ($event_status == 'A' || $event_status == 'C') {
+            echo "<p class='stat-active'>Approved </p>";
+        } elseif ($event_status == 'P') {
+            echo "<p class='stat-pending'>Pending </p>";
+        } elseif ($event_status == 'D') {
+            echo "<p class='stat-closed'>Declined </p>";
+        } else {
+            echo "";
+        }
+    }
+
+    function getEventStatusLabel($status) {
+        if ($status == 'A' || $status == 'C') {
+            echo "Approved";
+        } elseif ($status == 'P') {
+            echo "Pending";
+        } elseif ($status == 'D') {
+            echo "Declined";
+        } else {
+            echo "";
+        }
+    }
