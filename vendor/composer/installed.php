@@ -3,7 +3,7 @@
         'name' => 'haamda/event-management-system',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b29116d1796ff7bd3599437dbd93f03141ef9b75',
+        'reference' => 'c2182b4a0edb3d3eb28a5305a56b4035ab56187c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'haamda/event-management-system' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b29116d1796ff7bd3599437dbd93f03141ef9b75',
+            'reference' => 'c2182b4a0edb3d3eb28a5305a56b4035ab56187c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
