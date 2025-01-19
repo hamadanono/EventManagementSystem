@@ -19,12 +19,11 @@ jobs:
         with:
           php-version: '8.2'
 
+      - name: List directory structure (Debugging)
+        run: ls -R  # This will show all files and directories to confirm the structure
+
       - name: Install dependencies
-        run: |
-          cd EventManagementSystem  # Change to the correct directory if necessary
-          composer install
+        run: composer install
 
       - name: Run PHPUnit tests
-        run: |
-          cd EventManagementSystem  # Ensure PHPUnit runs from the correct directory
-          ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit
