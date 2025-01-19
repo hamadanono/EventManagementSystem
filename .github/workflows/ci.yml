@@ -1,35 +1,21 @@
-name: PHP Unit Test Workflow
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
 jobs:
   test:
-    runs-on: windows-latest # You can specify a Windows runner
+    runs-on: windows-latest  # Switch to Windows if testing locally on Windows
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2' # Ensure this matches your PHP version
-        extensions: mbstring, intl, bcmath
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
 
-    - name: Install dependencies with Composer
-      run: |
-        composer install --no-interaction --prefer-dist
+      - name: Clear Composer cache
+        run: composer clear-cache
 
-    - name: Verify PHPUnit installation
-      run: |
-        composer show phpunit/phpunit --latest # Verify PHPUnit installation
+      - name: Install dependencies
+        run: composer install
 
-    - name: Run PHPUnit Tests
-      run: |
-        ./vendor/bin/phpunit --configuration phpunit.xml # Run tests with PHPUnit
+      - name: Run PHPUnit tests
+        run: .\vendor\bin\phpunit  # Use Windows backslash path if running on Windows
