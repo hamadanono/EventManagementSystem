@@ -1,0 +1,1 @@
+{"version":1,"defects":{"PmfkiTest::testCreatePmfkiAccount":5,"SignInStudentTest::testValidLogin":8,"SignInStudentTest::testInvalidLogin":5,"SignUpTest::testStudentRegistration":5},"times":{"PmfkiTest::testCreatePmfkiAccount":0.018,"SignInStudentTest::testValidLogin":0.054,"SignInStudentTest::testInvalidLogin":0.001,"SignUpTest::testStudentRegistration":0.001}}
