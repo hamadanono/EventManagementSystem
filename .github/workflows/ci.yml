@@ -14,6 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Verify directory structure
+        run: |
+          ls -la  # List all files to ensure EventManagementSystem folder is where it should be
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -21,10 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd EventManagementSystem  # Change to the correct directory if necessary
+          ls -la  # List files again after checkout to verify correct directory
           composer install
 
       - name: Run PHPUnit tests
         run: |
-          cd EventManagementSystem  # Ensure PHPUnit runs from the correct directory
           ./vendor/bin/phpunit
