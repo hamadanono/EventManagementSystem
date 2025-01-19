@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest   # This uses the Windows runner, not Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -19,16 +19,12 @@ jobs:
         with:
           php-version: '8.2'
 
-      - name: Clear Composer cache
-        run: composer clear-cache  # This ensures Composer isn't using an old cache
-
-      - name: Install dependencies from scratch
-        run: composer install --no-interaction --prefer-dist --ignore-platform-reqs
-
-      - name: Verify PHPUnit installation
+      - name: Install dependencies
         run: |
-          composer show phpunit/phpunit --latest  # Check PHPUnit version
-          dir vendor\phpunit\phpunit\src\         # Verify if the path exists in Windows
+          cd EventManagementSystem  # Change to the correct directory if necessary
+          composer install
 
       - name: Run PHPUnit tests
-        run: .\vendor\bin\phpunit
+        run: |
+          cd EventManagementSystem  # Ensure PHPUnit runs from the correct directory
+          ./vendor/bin/phpunit
