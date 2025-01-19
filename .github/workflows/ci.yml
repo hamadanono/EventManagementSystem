@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest  # Switch to Windows if testing locally on Windows
+    runs-on: windows-latest   # This uses the Windows runner, not Ubuntu
 
     steps:
       - name: Checkout code
@@ -18,12 +18,17 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          
-      - name: Clear Composer cache
-        run: composer clear-cache
 
-      - name: Install dependencies
-        run: composer install
+      - name: Clear Composer cache
+        run: composer clear-cache  # This ensures Composer isn't using an old cache
+
+      - name: Install dependencies from scratch
+        run: composer install --no-interaction --prefer-dist --ignore-platform-reqs
+
+      - name: Verify PHPUnit installation
+        run: |
+          composer show phpunit/phpunit --latest  # Check PHPUnit version
+          dir vendor\phpunit\phpunit\src\         # Verify if the path exists in Windows
 
       - name: Run PHPUnit tests
-        run: .\vendor\bin\phpunit  # Use Windows backslash path if running on Windows
+        run: .\vendor\bin\phpunit
