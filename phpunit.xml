@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<phpunit bootstrap="/c/Users/Haamda Juanda/Documents/EventManagementSystem/vendor/autoload.php">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="C:/Users/Haamda Juanda/Documents/EventManagementSystem/vendor/autoload.php">
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory suffix="Test.php">./tests</directory>
