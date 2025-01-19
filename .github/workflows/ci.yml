@@ -1,3 +1,11 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   test:
     runs-on: windows-latest  # Switch to Windows if testing locally on Windows
@@ -10,7 +18,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-
+          
       - name: Clear Composer cache
         run: composer clear-cache
 
